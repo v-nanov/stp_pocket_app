@@ -9,11 +9,16 @@
 import UIKit
 
 class TopicTableViewController: UITableViewController {
-    var acroynm: String? // acroynm will be passed from publication controller.
+    var acroynm: String? // passed from publication controller
+    var topicKey: Int? // passed to rulebook controller
     var TableData: Array<String> = Array<String>()
+    var topicKeyArray: Array<Int> = Array<Int>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.layoutMargins = UIEdgeInsets.zero
+        tableView.separatorInset = UIEdgeInsets.zero
 
         debugPrint("passed acroynm: \(acroynm)");
         guard acroynm != nil else {
@@ -76,6 +81,7 @@ class TopicTableViewController: UITableViewController {
             debugPrint(topicKey)
             debugPrint(topic)
             TableData.append(topic!)
+            topicKeyArray.append(topicKey!)
         }
         do_table_refresh()
     }
@@ -86,8 +92,26 @@ class TopicTableViewController: UITableViewController {
             return
         }
     }
-
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueRulebook" {
+            if let destination = segue.destination as? RulebookTableViewController {
+                destination.topicKey = topicKey
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let row = indexPath.row
+        topicKey = topicKeyArray[row]
+        print("the row is tabbed:\(topicKey)")
+        
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "segueRulebook", sender: self)
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -111,6 +135,7 @@ class TopicTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TopicTableViewCell
         cell.titleLabel.text = TableData[indexPath.row]
         cell.titleLabel.textColor = UIColor(white: 114/225, alpha: 1)
+        cell.layoutMargins = UIEdgeInsets.zero
         
         return cell
     }
