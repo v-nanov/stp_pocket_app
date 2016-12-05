@@ -10,8 +10,11 @@ import UIKit
 
 class RulebookTableViewController: UITableViewController {
     
-        var topicKey: Int? // topicKey will be passed from publication controller.
-        var TableData: Array<String> = Array<String>()
+    var topicKey: Int? // topicKey will be passed from publication controller.
+    var rbKey: Int? // rbKey will be passed to section controller.
+    
+    var TableData: Array<String> = Array<String>()
+    var rbKeyArray: Array<Int> = Array<Int>()
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -77,9 +80,11 @@ class RulebookTableViewController: UITableViewController {
             for item in rb! {
                 let rbName = item["rbName"] as? String
                 let summary = item["summary"] as? String
+                let rbKey = item["rbKey"] as? Int
                 debugPrint(rbName)
                 debugPrint(summary)
                 TableData.append(rbName!)
+                rbKeyArray.append(rbKey!)
             }
             do_table_refresh()
         }
@@ -97,6 +102,26 @@ class RulebookTableViewController: UITableViewController {
             super.didReceiveMemoryWarning()
             // Dispose of any resources that can be recreated.
         }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueSection" {
+            if let destination = segue.destination as? SectionTableViewController {
+                destination.rbKey = rbKey
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let row = indexPath.row
+        rbKey = rbKeyArray[row]
+        print("the row is tabbed:\(rbKey)")
+        
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "segueSection", sender: self)
+        }
+    }
         
         // MARK: - Table view data source
         
