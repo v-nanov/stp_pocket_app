@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StpLogin/ViewController.swift"
-            timestampString = "502239525.017392"
+            timestampString = "503436353.106717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "callLoginAPI(email:password:)"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "checkLogin(email:password:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StpLogin/ViewController.swift"
-            timestampString = "501717404.540165"
+            timestampString = "503433164.914915"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "19"

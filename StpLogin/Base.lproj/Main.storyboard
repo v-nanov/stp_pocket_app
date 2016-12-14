@@ -54,7 +54,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ci5-RT-kIq">
                                 <frame key="frameInset" minX="23" minY="343" width="336" height="52"/>
@@ -73,7 +73,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="signinStp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lfb-zR-anB"/>
+                                    <action selector="loginAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aM6-MD-y1U"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1MV-bC-l2j">
@@ -88,7 +88,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="SZc-Et-IEo"/>
                     <connections>
-                        <outlet property="Signin" destination="ci5-RT-kIq" id="cP8-J3-7bs"/>
                         <outlet property="emailText" destination="66I-Mq-c1s" id="p7g-kT-xn7"/>
                         <outlet property="passwordText" destination="6Hp-4F-9MT" id="eYo-aQ-ytq"/>
                         <segue destination="nP9-n1-hwM" kind="show" identifier="segueDisplayPubList" id="hDL-dD-6OE"/>
@@ -320,10 +319,83 @@
                             <outlet property="delegate" destination="dUw-vO-chy" id="LZy-3B-4yN"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="jnH-sV-L62" kind="show" identifier="segueParalist" id="oeE-gN-htU"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fvZ-KQ-EdC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4116" y="151.57421289355324"/>
+            <point key="canvasLocation" x="4087" y="114"/>
+        </scene>
+        <!--Para Table View Controller-->
+        <scene sceneID="jv9-bN-rZ1">
+            <objects>
+                <tableViewController id="jnH-sV-L62" customClass="ParaTableViewController" customModule="StpLogin" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ed9-1H-1gg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="IBx-g5-lRp" customClass="ParaTableViewCell" customModule="StpLogin" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IBx-g5-lRp" id="j4V-aT-Qp6">
+                                    <frame key="frameInset" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pml-So-hKQ">
+                                            <frame key="frameInset" minX="206" minY="14" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Pml-So-hKQ" secondAttribute="trailing" id="LMG-le-us3"/>
+                                        <constraint firstItem="Pml-So-hKQ" firstAttribute="leading" secondItem="j4V-aT-Qp6" secondAttribute="leadingMargin" id="QVJ-4d-SKL"/>
+                                        <constraint firstItem="Pml-So-hKQ" firstAttribute="bottom" secondItem="j4V-aT-Qp6" secondAttribute="bottomMargin" constant="8" id="afK-kO-UZc"/>
+                                        <constraint firstItem="Pml-So-hKQ" firstAttribute="top" secondItem="j4V-aT-Qp6" secondAttribute="topMargin" constant="8" id="nzs-Xi-pkt"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="titleLabel" destination="Pml-So-hKQ" id="YEe-q5-n3d"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="header" id="I7I-Ck-54L" customClass="ParaHeaderCell" customModule="StpLogin" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="136" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I7I-Ck-54L" id="OpE-nI-h3d">
+                                    <frame key="frameInset" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" layoutMarginsFollowReadableWidth="YES" text="headerLabel" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GaL-YF-KEE">
+                                            <frame key="frameInset" minX="193" minY="8" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="GaL-YF-KEE" secondAttribute="trailing" id="0fv-zl-vU5"/>
+                                        <constraint firstItem="GaL-YF-KEE" firstAttribute="top" secondItem="OpE-nI-h3d" secondAttribute="topMargin" constant="8" id="C2O-df-NCM"/>
+                                        <constraint firstItem="GaL-YF-KEE" firstAttribute="leading" secondItem="OpE-nI-h3d" secondAttribute="leadingMargin" id="Qdq-uS-cTI"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="GaL-YF-KEE" secondAttribute="bottom" constant="12" id="lg2-CY-HKV"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="paraHeader" destination="GaL-YF-KEE" id="qlD-Lp-2WE"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="jnH-sV-L62" id="FNf-LH-d2Y"/>
+                            <outlet property="delegate" destination="jnH-sV-L62" id="U1F-R7-zKt"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JUq-oF-HnZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4860" y="114"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Foa-ca-A1J">

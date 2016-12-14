@@ -14,6 +14,7 @@ class SectionTableViewController: UITableViewController {
     var sectionKey: Int? // passed to Paralist controller
     var TableData: Array<String> = Array<String>()
     var sectionKeyArray: Array<Int> = Array<Int>()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,15 +94,15 @@ class SectionTableViewController: UITableViewController {
             return
         }
     }
-   /*
+   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueParalist" {
-            if let destination = segue.destination as? RulebookTableViewController {
+            if let destination = segue.destination as? ParaTableViewController {
                 destination.sectionKey = sectionKey
             }
         }
     }
-    */
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         

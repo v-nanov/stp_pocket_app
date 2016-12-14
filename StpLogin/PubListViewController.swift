@@ -126,7 +126,7 @@ class PubListViewController: UITableViewController {
         
         let title = UILabel()
         title.font = UIFont(name: "Futura", size: 18)!
-        title.text = "STP Mobile Pocket Reference"
+        title.text = "Select a publication blew:"
         title.textColor = UIColor.red
         
         header?.textLabel?.font = title.font

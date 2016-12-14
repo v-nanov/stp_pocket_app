@@ -12,14 +12,35 @@ import Foundation
 class ViewController: UIViewController {
 
     @IBOutlet weak var passwordText: UITextField!
-    @IBOutlet weak var Signin: UIButton!
     @IBOutlet weak var emailText: UITextField!
     
     var userID: Int?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // Check if the user login before
+        let hasLoginKey = UserDefaults.standard.bool(forKey: "hasLoginKey")
+        if hasLoginKey == true {
+            debugPrint("has login key, get the username/password.")
+            let username = UserDefaults.standard.string(forKey: "username")
+            if let account = username {
+                do
+                {
+                    let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName, account: account, accessGroup: KeychainConfiguration.accessGroup)
+                    
+                    emailText.text = passwordItem.account
+                    passwordText.text = try passwordItem.readPassword()
+                }
+                catch {
+                    fatalError("Error reading password from keychain - \(error)")
+                }
+            }
+        }
+        else {
+            debugPrint("no login key saved yet.")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,6 +50,35 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    // MARK: save username and password to keychain for next login
+    
+    func saveLogin(username: String, password: String){
+        UserDefaults.standard.set(true, forKey: "hasLoginKey")
+        UserDefaults.standard.set(username, forKey: "username")
+        
+        do {
+            // Create a keychain item with the account item
+            let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName, account: username, accessGroup: KeychainConfiguration.accessGroup)
+            try passwordItem.savePassword(password)
+        }
+        catch {
+            fatalError("Error updating keychain - \(error)")
+        }
+    }
+    
+    func deleteLogin(username: String, password: String) {
+        UserDefaults.standard.set(false, forKey: "hasLoginKey")
+        
+        do {
+            let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName, account: username, accessGroup: KeychainConfiguration.accessGroup)
+            try passwordItem.deleteItem()
+        }
+        catch {
+            fatalError("Error deleting keychain - \(error)")
+        }
     }
     
     func loginSuccess(userId: Int?, error: String?){
@@ -44,6 +94,7 @@ class ViewController: UIViewController {
             return
         }
         userID = userId
+        saveLogin(username: emailText.text!, password: passwordText.text!)
        
 
         DispatchQueue.main.async {
@@ -74,19 +125,21 @@ class ViewController: UIViewController {
     
     
     // call web API to login
-    func callLoginAPI(email: String, password: String){
+    func checkLogin(email: String, password: String){
         
         // prepare json data
         let json = ["email": email, "password": password]
         
         // create post request
-        let loginEndpoint: String = "http://10.1.48.110:9001/api/users"
+        let loginEndpoint: String = Constants.urlEndPoint + "users"
         guard let localIIS = URL(string: loginEndpoint) else {
             print("Error: cannot create URL")
             return
         }
         var request = URLRequest(url: localIIS)
         request.httpMethod = "POST"
+        
+        debugPrint(request.url?.absoluteString)
         
         // insert json data to request
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
@@ -134,7 +187,8 @@ class ViewController: UIViewController {
 
 
     // MARK: Actions
-    @IBAction func signinStp(_ sender: UIButton) {
+    @IBAction func loginAction(_ sender: UIButton) {
+    
         
         guard let email = emailText.text, !email.isEmpty else{
             let alertController = UIAlertController(title:"STP in Pocket", message: "Please enter your email address", preferredStyle: UIAlertControllerStyle.alert)
@@ -144,7 +198,6 @@ class ViewController: UIViewController {
             }
             alertController.addAction(remindAction)
             self.present(alertController, animated: true, completion: nil)
-            
             return
         }
         
@@ -159,7 +212,7 @@ class ViewController: UIViewController {
             return
         }
         debugPrint("email=" + email + ", pwd=" + pwd)
-        callLoginAPI(email: email, password: pwd)
+        checkLogin(email: email, password: pwd)
     }
     
 
