@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate{
 
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var emailText: UITextField!
@@ -20,7 +20,17 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Check if the user login before
+        // Dismiss the textfield when the view is tapped.
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleViewTap(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+        
+        // Define the action when the email input lose focus.
+        emailText.delegate = self
+        emailText.addTarget(self, action: #selector(self.setPasswordForUser(_:)), for: UIControlEvents.editingDidEnd)
+        
+        
+        // Check if the user has login before
         let hasLoginKey = UserDefaults.standard.bool(forKey: "hasLoginKey")
         if hasLoginKey == true {
             debugPrint("has login key, get the username/password.")
@@ -29,17 +39,42 @@ class ViewController: UIViewController {
                 do
                 {
                     let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName, account: account, accessGroup: KeychainConfiguration.accessGroup)
-                    
                     emailText.text = passwordItem.account
                     passwordText.text = try passwordItem.readPassword()
                 }
                 catch {
-                    fatalError("Error reading password from keychain - \(error)")
+                    debugPrint("Error reading password from keychain - \(error)")
                 }
             }
         }
         else {
+            // Do nothing.
             debugPrint("no login key saved yet.")
+        }
+    }
+    
+    // MARK: dismiss the keyboard when user click the view other than the text input box.
+    func handleViewTap(_ sender: UITapGestureRecognizer){
+        emailText.resignFirstResponder()
+        passwordText.resignFirstResponder()
+    }
+    
+    // Get password from keychain for the user.
+    func setPasswordForUser(_ sender: UITapGestureRecognizer){
+        debugPrint("for user: \(emailText.text)")
+        if let account = emailText.text {
+            do
+            {
+                let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName, account: account, accessGroup: KeychainConfiguration.accessGroup)
+                passwordText.text = try passwordItem.readPassword()
+            }
+            catch {
+                debugPrint("cannot get password for user: \(account)")
+                debugPrint("Error reading password from keychain - \(error)")
+                passwordText.text = ""
+            }
+        } else {
+            passwordText.text = ""
         }
     }
     
@@ -59,13 +94,16 @@ class ViewController: UIViewController {
         UserDefaults.standard.set(true, forKey: "hasLoginKey")
         UserDefaults.standard.set(username, forKey: "username")
         
+        savePassword(username: username, password: password)
+    }
+    
+    func savePassword(username: String, password: String) {
         do {
-            // Create a keychain item with the account item
             let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName, account: username, accessGroup: KeychainConfiguration.accessGroup)
             try passwordItem.savePassword(password)
         }
         catch {
-            fatalError("Error updating keychain - \(error)")
+            debugPrint("Error updating keychain - \(error)")
         }
     }
     
@@ -85,7 +123,7 @@ class ViewController: UIViewController {
         guard let userId = userId else {
             print("cannot login")
             OperationQueue.main.addOperation {
-                if let error = error{
+                if let error = error {
                         self.showAlert(msg: error)
                 } else {
                         self.showAlert(msg: "Cannot login, please try later.")
@@ -96,12 +134,10 @@ class ViewController: UIViewController {
         userID = userId
         saveLogin(username: emailText.text!, password: passwordText.text!)
        
-
-        DispatchQueue.main.async {
+        DispatchQueue.main.async
+        {
             self.performSegue(withIdentifier: "segueDisplayPubList", sender: self)
-         
         }
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
