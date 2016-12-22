@@ -1,0 +1,3 @@
+# Require SQLite 0.11.1
+github "stephencelis\SQLite.swift" ~> 0.11.1
+

@@ -19,7 +19,7 @@ class PubListViewController: UITableViewController {
         //cellView.delegate = self
         //cellView.dataSource = self
 
-        debugPrint("passed userId: \(userId)");
+        //debugPrint("passed userId: \(userId)");
         guard userId != nil else {
             debugPrint("empty userID")
             return
@@ -77,8 +77,8 @@ class PubListViewController: UITableViewController {
         for item in pubs! {
             let acronym = item["acronym"] as? String
             let title = item["title"] as? String
-            debugPrint(acronym)
-            debugPrint(title)
+            //debugPrint(acronym)
+            //debugPrint(title)
             TableData.append(acronym! + ": " + title!)
         }
         do_table_refresh()

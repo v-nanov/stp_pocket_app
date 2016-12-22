@@ -124,7 +124,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
             print("cannot login")
             OperationQueue.main.addOperation {
                 if let error = error {
-                        self.showAlert(msg: error)
+                        self.showAlert(msg: error.description)
                 } else {
                         self.showAlert(msg: "Cannot login, please try later.")
                 }
@@ -175,7 +175,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
         var request = URLRequest(url: localIIS)
         request.httpMethod = "POST"
         
-        debugPrint(request.url?.absoluteString)
+        //debugPrint(request.url?.absoluteString)
         
         // insert json data to request
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
@@ -190,7 +190,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
             
             guard  error == nil else{
                 print("error=\(error)")
-                self.loginSuccess(userId: nil, error: error.debugDescription)
+                self.loginSuccess(userId: nil, error: error?.localizedDescription)
                 return
             }
             
@@ -247,7 +247,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
             self.present(alertController, animated: true, completion: nil)
             return
         }
-        debugPrint("email=" + email + ", pwd=" + pwd)
+        //debugPrint("email=" + email + ", pwd=" + pwd)
         checkLogin(email: email, password: pwd)
     }
     

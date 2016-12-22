@@ -20,10 +20,15 @@ class TopicTableViewController: UITableViewController {
         tableView.layoutMargins = UIEdgeInsets.zero
         tableView.separatorInset = UIEdgeInsets.zero
 
-        debugPrint("passed acroynm: \(acroynm)");
+        //debugPrint("passed acroynm: \(acroynm)");
         guard acroynm != nil else {
             debugPrint("empty acroynm")
             return
+        }
+        
+        if let id = StpDB.instance.addContact(cname: "Tom", cphone: "7787070628", caddress: "2188 Yukon St")
+        {
+            print("contact id is \(id)")
         }
         
         callGetTopicsAPI()
