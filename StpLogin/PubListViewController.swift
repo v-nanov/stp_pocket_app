@@ -116,8 +116,50 @@ class PubListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PublicationTableViewCell
         cell.titleLabel.text = TableData[indexPath.row]
         cell.titleLabel.textColor = UIColor(white: 114/225, alpha: 1)
+        
+        let holdToDownload = UILongPressGestureRecognizer(target: self, action: #selector(longPressDownload(sender:)))
+        holdToDownload.minimumPressDuration = 1.0
+        cell.addGestureRecognizer(holdToDownload)
 
         return cell
+    }
+    
+    // long press to trigger download.
+    func longPressDownload(sender: UILongPressGestureRecognizer) {
+        
+        if(sender.state == UIGestureRecognizerState.began){
+            print("long press begin...")
+            let point: CGPoint = sender.location(in: tableView)
+            guard let indexPath: IndexPath = tableView.indexPathForRow(at: point) else {
+                print("not press on the right area. Ignore.")
+                return
+            }
+            let row = indexPath.row
+            let cellValue = self.TableData[row]
+            let range1 = cellValue.range(of: ":")
+            let endInt = range1?.lowerBound
+            
+            debugPrint("the row is tabbed :" + cellValue.substring(to: endInt!))
+            
+            let alert: UIAlertController = UIAlertController(title: "Please Confirm", message: "Are you sure you want to download " + cellValue.substring(to: endInt!) + "?", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (UIAlertAction) -> Void in
+              
+                
+              
+            }));
+            alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+            if self.presentedViewController == nil {
+                self.present(alert, animated: true, completion: nil)
+            }
+
+            
+        } else if (sender.state == UIGestureRecognizerState.ended){
+            print("long press end.")
+            
+        }
+        
+        
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -148,7 +190,7 @@ class PubListViewController: UITableViewController {
         }
     }
     
-    //
+    // user tap the row in the table
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -165,6 +207,7 @@ class PubListViewController: UITableViewController {
         }
     }
 
+ 
 
     /*
     // Override to support conditional editing of the table view.

@@ -33,7 +33,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
         // Check if the user has login before
         let hasLoginKey = UserDefaults.standard.bool(forKey: "hasLoginKey")
         if hasLoginKey == true {
-            debugPrint("has login key, get the username/password.")
+            //debugPrint("has login key, get the username/password.")
             let username = UserDefaults.standard.string(forKey: "username")
             if let account = username {
                 do
@@ -133,6 +133,11 @@ class ViewController: UIViewController, UITextFieldDelegate{
         }
         userID = userId
         saveLogin(username: emailText.text!, password: passwordText.text!)
+        
+        // Check if there is any offline data.
+        let contacts = StpDB.instance.getContacts()
+        print("offline database: \(contacts.count)" )
+        
        
         DispatchQueue.main.async
         {

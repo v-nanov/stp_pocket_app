@@ -26,11 +26,13 @@ class TopicTableViewController: UITableViewController {
             return
         }
         
-        if let id = StpDB.instance.addContact(cname: "Tom", cphone: "7787070628", caddress: "2188 Yukon St")
-        {
-            print("contact id is \(id)")
-        }
+        var contacts = StpDB.instance.getContacts()
         
+       
+        for item in contacts {
+            print(item.name)
+        }
+                
         callGetTopicsAPI()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140;
@@ -83,8 +85,8 @@ class TopicTableViewController: UITableViewController {
         for item in topics! {
             let topicKey = item["topicKey"] as? Int
             let topic = item["topic"] as? String
-            debugPrint(topicKey)
-            debugPrint(topic)
+            //debugPrint(topicKey)
+            //debugPrint(topic)
             TableData.append(topic!)
             topicKeyArray.append(topicKey!)
         }
