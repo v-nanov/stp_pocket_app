@@ -12,6 +12,7 @@ import UIKit
 class SectionTableViewController: UITableViewController {
     var rbKey: Int? // passed from Rulebook controller
     var sectionKey: Int? // passed to Paralist controller
+    var offline: Bool = false // passed from Rulebook controller
     var TableData: Array<String> = Array<String>()
     var sectionKeyArray: Array<Int> = Array<Int>()
     
@@ -21,24 +22,42 @@ class SectionTableViewController: UITableViewController {
         
         tableView.layoutMargins = UIEdgeInsets.zero
         tableView.separatorInset = UIEdgeInsets.zero
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 140;
 
-        debugPrint("passed acroynm: \(rbKey)");
         guard rbKey != nil else {
             debugPrint("empty rbKey")
             return
         }
-        
-        callGetTopicsAPI()
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 140;
-
+        if offline == false {
+            callWebAPI()
+        } else {
+            browseLocal()
+        }
     }
     
+    
+    // browse publications in local database
+    func browseLocal() {
+        debugPrint("browse local sections..")
+        let items = StpDB.instance.getSections(key: rbKey!)
+        
+        for item in items {
+            let sectionKey = item.sectionKey
+            let sectName = item.sectName
+            
+            TableData.append(sectName)
+            sectionKeyArray.append(sectionKey)
+        }
+        
+    }
+
+    
     // call web API to get publications list
-    func callGetTopicsAPI(){
+    func callWebAPI(){
         
         // create request
-        let apiURL: String = Constants.urlEndPoint + "Section?rbKey=\(rbKey!)"
+        let apiURL: String = Constants.URL_END_POINT + "Section?rbKey=\(rbKey!)"
         guard let api = URL(string: apiURL) else {
             print("Error: cannot create URL")
             return
@@ -71,8 +90,8 @@ class SectionTableViewController: UITableViewController {
         task.resume()
     }
     
+    
     func extract_json(jsonData: Data){
-        
         guard let sections = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [AnyObject] else{
             return
         }
@@ -80,13 +99,13 @@ class SectionTableViewController: UITableViewController {
         for item in sections! {
             let sectionKey = item["sectionKey"] as? Int
             let sectName = item["sectName"] as? String
-            debugPrint(sectionKey)
-            debugPrint(sectName)
+            
             TableData.append(sectName!)
             sectionKeyArray.append(sectionKey!)
         }
         do_table_refresh()
     }
+    
     
     func do_table_refresh()  {
         DispatchQueue.main.async {
@@ -95,13 +114,8 @@ class SectionTableViewController: UITableViewController {
         }
     }
    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "segueParalist" {
-            if let destination = segue.destination as? ParaTableViewController {
-                destination.sectionKey = sectionKey
-            }
-        }
-    }
+    
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -163,59 +177,14 @@ class SectionTableViewController: UITableViewController {
     }
 
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueParalist" {
+            if let destination = segue.destination as? ParaTableViewController {
+                destination.sectionKey = sectionKey
+                destination.offline = offline
+            }
+        }
+     }
 }

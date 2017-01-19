@@ -9,41 +9,58 @@
 import UIKit
 
 class TopicTableViewController: UITableViewController {
-    var acroynm: String? // passed from publication controller
+    var acronym: String? // passed from publication controller
+    var offline: Bool = false // passed from publication controller
     var topicKey: Int? // passed to rulebook controller
     var TableData: Array<String> = Array<String>()
     var topicKeyArray: Array<Int> = Array<Int>()
-
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.layoutMargins = UIEdgeInsets.zero
         tableView.separatorInset = UIEdgeInsets.zero
-
-        //debugPrint("passed acroynm: \(acroynm)");
-        guard acroynm != nil else {
-            debugPrint("empty acroynm")
-            return
-        }
-        
-        var contacts = StpDB.instance.getContacts()
-        
-       
-        for item in contacts {
-            print(item.name)
-        }
-                
-        callGetTopicsAPI()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140;
 
+        debugPrint("passed offline is: \(offline)");
+        guard acronym != nil else {
+            debugPrint("empty acronym")
+            return
+        }
+        
+        if offline == false {
+            callGetTopicsAPI()
+        } else {
+            browseLocal()
+        }
     }
+    
+    
+    // browse publications in local database
+    func browseLocal() {
+        debugPrint("browse local topics...")
+        let items = StpDB.instance.getTopics(aym: acronym!)
+        
+        for item in items {
+            let topicKey = item.topicKey
+            let topic = item.topic
+            //debugPrint(topicKey)
+            //debugPrint(topic)
+            TableData.append(topic)
+            topicKeyArray.append(topicKey)
+        }
+        
+    }
+    
     
     // call web API to get publications list
     func callGetTopicsAPI(){
         
         // create request
-        let apiURL: String = Constants.urlEndPoint + "Topics?acroynm=\(acroynm!)"
+        let apiURL: String = Constants.URL_END_POINT + "Topics?acronym=\(acronym!)"
         guard let api = URL(string: apiURL) else {
             print("Error: cannot create URL")
             return
@@ -104,6 +121,7 @@ class TopicTableViewController: UITableViewController {
         if segue.identifier == "segueRulebook" {
             if let destination = segue.destination as? RulebookTableViewController {
                 destination.topicKey = topicKey
+                destination.offline = offline
             }
         }
     }

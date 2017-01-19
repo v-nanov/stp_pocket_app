@@ -77,11 +77,31 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1MV-bC-l2j">
-                                <frame key="frameInset" minX="236" minY="411" width="123" height="31"/>
+                                <frame key="frameInset" minX="236" minY="457" width="123" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Forgot password?">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                            </button>
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GZT-eJ-bvr">
+                                <frame key="frameInset" minX="23" minY="398" width="336" height="52"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="Browse offline">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                        <color key="value" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="browseOffline:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JL4-Tb-SyN"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.059922957970000003" green="0.12559196449999999" blue="0.49590968590000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -166,7 +186,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IEK-XC-tsc" id="1eg-Id-oQn">
-                                    <frame key="frameInset" width="375" height="44"/>
+                                    <frame key="frameInset" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="topic" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ihd-Ih-Nxp">
@@ -177,9 +197,9 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Ihd-Ih-Nxp" firstAttribute="top" secondItem="1eg-Id-oQn" secondAttribute="top" constant="8" id="P2d-bQ-UD1"/>
-                                        <constraint firstItem="Ihd-Ih-Nxp" firstAttribute="leading" secondItem="1eg-Id-oQn" secondAttribute="leading" id="cDY-Cu-KCp"/>
-                                        <constraint firstAttribute="trailing" secondItem="Ihd-Ih-Nxp" secondAttribute="trailing" id="eLU-5J-rGt"/>
+                                        <constraint firstItem="Ihd-Ih-Nxp" firstAttribute="top" secondItem="1eg-Id-oQn" secondAttribute="topMargin" constant="8" id="P2d-bQ-UD1"/>
+                                        <constraint firstItem="Ihd-Ih-Nxp" firstAttribute="leading" secondItem="1eg-Id-oQn" secondAttribute="leadingMargin" id="cDY-Cu-KCp"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Ihd-Ih-Nxp" secondAttribute="trailing" id="eLU-5J-rGt"/>
                                         <constraint firstAttribute="bottom" secondItem="Ihd-Ih-Nxp" secondAttribute="bottom" constant="8" id="n4T-Eh-ULd"/>
                                     </constraints>
                                 </tableViewCellContentView>

@@ -9,5 +9,6 @@
 import Foundation
 
 struct Constants {
-    static let urlEndPoint = "http://10.1.48.110:9001/api/"
+    static let URL_END_POINT = "http://10.1.48.110:9001/api/"
+    static let SESSION = 7.0  // how many days can the users browse the offline data after their last login.
 }

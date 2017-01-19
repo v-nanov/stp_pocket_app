@@ -10,9 +10,9 @@ import UIKit
 
 class RulebookTableViewController: UITableViewController {
     
-    var topicKey: Int? // topicKey will be passed from publication controller.
+    var topicKey: Int? // topicKey will be passed from topic controller.
     var rbKey: Int? // rbKey will be passed to section controller.
-    
+    var offline: Bool = false // passed from topic controller
     var TableData: Array<String> = Array<String>()
     var rbKeyArray: Array<Int> = Array<Int>()
         
@@ -21,24 +21,45 @@ class RulebookTableViewController: UITableViewController {
             
             tableView.layoutMargins = UIEdgeInsets.zero
             tableView.separatorInset = UIEdgeInsets.zero
-            
-            debugPrint("passed topicKey: \(topicKey)");
+            tableView.rowHeight = UITableViewAutomaticDimension
+            tableView.estimatedRowHeight = 140;
+
+            debugPrint("passed offline: \(offline)");
             guard topicKey != nil else {
                 debugPrint("empty topicKey")
                 return
             }
             
-            callGetTopicsAPI()
-            tableView.rowHeight = UITableViewAutomaticDimension
-            tableView.estimatedRowHeight = 140;
+            if offline == false {
+                callGetTopicsAPI()
+            } else {
+                browseLocal()
+            }
             
         }
+    
+    
+    // browse publications in local database
+    func browseLocal() {
+        debugPrint("browse local rulebooks..")
+        let items = StpDB.instance.getRulebooks(key: topicKey!)
+        
+        for item in items {
+            let rbKey = item.rbKey
+            let rbName = item.rbName
+            
+            TableData.append(rbName)
+            rbKeyArray.append(rbKey)
+
+        }
+        
+    }
         
         // call web API to get publications list
         func callGetTopicsAPI(){
             
             // create request
-            let apiURL: String = Constants.urlEndPoint + "Rulebook?topicKey=\(topicKey!)"
+            let apiURL: String = Constants.URL_END_POINT + "Rulebook?topicKey=\(topicKey!)"
             guard let api = URL(string: apiURL) else {
                 print("Error: cannot create URL")
                 return
@@ -107,6 +128,7 @@ class RulebookTableViewController: UITableViewController {
         if segue.identifier == "segueSection" {
             if let destination = segue.destination as? SectionTableViewController {
                 destination.rbKey = rbKey
+                destination.offline = offline
             }
         }
     }

@@ -15,7 +15,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var emailText: UITextField!
     
     var userID: Int?
-    
+    var offline: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
         // Define the action when the email input lose focus.
         emailText.delegate = self
         emailText.addTarget(self, action: #selector(self.setPasswordForUser(_:)), for: UIControlEvents.editingDidEnd)
-        
         
         // Check if the user has login before
         let hasLoginKey = UserDefaults.standard.bool(forKey: "hasLoginKey")
@@ -53,15 +52,16 @@ class ViewController: UIViewController, UITextFieldDelegate{
         }
     }
     
+    
     // MARK: dismiss the keyboard when user click the view other than the text input box.
     func handleViewTap(_ sender: UITapGestureRecognizer){
         emailText.resignFirstResponder()
         passwordText.resignFirstResponder()
     }
     
+    
     // Get password from keychain for the user.
     func setPasswordForUser(_ sender: UITapGestureRecognizer){
-        debugPrint("for user: \(emailText.text)")
         if let account = emailText.text {
             do
             {
@@ -78,9 +78,11 @@ class ViewController: UIViewController, UITextFieldDelegate{
         }
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = "STP Pocket Reference"
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -89,10 +91,12 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     
     // MARK: save username and password to keychain for next login
-    
     func saveLogin(username: String, password: String){
         UserDefaults.standard.set(true, forKey: "hasLoginKey")
         UserDefaults.standard.set(username, forKey: "username")
+        
+        let today = Date()
+        UserDefaults.standard.set(today, forKey: "loginDate")
         
         savePassword(username: username, password: password)
     }
@@ -134,11 +138,9 @@ class ViewController: UIViewController, UITextFieldDelegate{
         userID = userId
         saveLogin(username: emailText.text!, password: passwordText.text!)
         
-        // Check if there is any offline data.
-        let contacts = StpDB.instance.getContacts()
-        print("offline database: \(contacts.count)" )
+        // set offline to false
+        offline = false
         
-       
         DispatchQueue.main.async
         {
             self.performSegue(withIdentifier: "segueDisplayPubList", sender: self)
@@ -149,6 +151,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
         if segue.identifier == "segueDisplayPubList" {
             if let destinationVC = segue.destination as? PubListViewController {
                 destinationVC.userId = userID
+                destinationVC.offline = offline
             }
         }
     }
@@ -172,7 +175,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
         let json = ["email": email, "password": password]
         
         // create post request
-        let loginEndpoint: String = Constants.urlEndPoint + "users"
+        let loginEndpoint: String = Constants.URL_END_POINT + "users"
         guard let localIIS = URL(string: loginEndpoint) else {
             print("Error: cannot create URL")
             return
@@ -226,16 +229,40 @@ class ViewController: UIViewController, UITextFieldDelegate{
         task.resume()
     }
 
+    @IBAction func browseOffline(_ sender: UIButton) {
+        offline = true
+        
+        // Check if the user has login before
+        if let lastLoginDate = UserDefaults.standard.object(forKey: "loginDate") as? Date {
+            let expiredDate = lastLoginDate.addingTimeInterval( 24.0 * 60.0 * 60.0 * Constants.SESSION)
+            let today = Date()
+            if today > expiredDate {
+                showAlert(msg: "The \(Constants.SESSION) days' limitation for offline browsing is expired. Please login again.")
+            }
+        } else {
+            showAlert(msg: "Sorry. You don't have the authorization to access the offline data.")
+        }
+
+        // Check if there is any offline data.
+        let publications = StpDB.instance.getPublications()
+        
+        if publications.count == 0 {
+            showAlert(msg: "No publication is available for browse offline. Please download some first.")
+        } else {
+            DispatchQueue.main.async
+            {
+                self.performSegue(withIdentifier: "segueDisplayPubList", sender: self)
+            }
+
+        }
+    }
 
     // MARK: Actions
     @IBAction func loginAction(_ sender: UIButton) {
-    
-        
         guard let email = emailText.text, !email.isEmpty else{
             let alertController = UIAlertController(title:"STP in Pocket", message: "Please enter your email address", preferredStyle: UIAlertControllerStyle.alert)
             let remindAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default){(result: UIAlertAction)-> Void in
                 print("OK")
-                
             }
             alertController.addAction(remindAction)
             self.present(alertController, animated: true, completion: nil)
@@ -255,8 +282,5 @@ class ViewController: UIViewController, UITextFieldDelegate{
         //debugPrint("email=" + email + ", pwd=" + pwd)
         checkLogin(email: email, password: pwd)
     }
-    
-
-
 }
 
