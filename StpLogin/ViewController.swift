@@ -32,11 +32,9 @@ class ViewController: UIViewController, UITextFieldDelegate{
         // Check if the user has login before
         let hasLoginKey = UserDefaults.standard.bool(forKey: "hasLoginKey")
         if hasLoginKey == true {
-            //debugPrint("has login key, get the username/password.")
             let username = UserDefaults.standard.string(forKey: "username")
             if let account = username {
-                do
-                {
+                do {
                     let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName, account: account, accessGroup: KeychainConfiguration.accessGroup)
                     emailText.text = passwordItem.account
                     passwordText.text = try passwordItem.readPassword()
@@ -45,10 +43,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
                     debugPrint("Error reading password from keychain - \(error)")
                 }
             }
-        }
-        else {
-            // Do nothing.
-            debugPrint("no login key saved yet.")
         }
     }
     
@@ -63,8 +57,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
     // Get password from keychain for the user.
     func setPasswordForUser(_ sender: UITapGestureRecognizer){
         if let account = emailText.text {
-            do
-            {
+            do {
                 let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName, account: account, accessGroup: KeychainConfiguration.accessGroup)
                 passwordText.text = try passwordItem.readPassword()
             }
@@ -80,13 +73,12 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationItem.title = "STP Pocket Reference"
+        navigationItem.title = Constants.TITLE
     }
     
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     
@@ -101,6 +93,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
         savePassword(username: username, password: password)
     }
     
+    
     func savePassword(username: String, password: String) {
         do {
             let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName, account: username, accessGroup: KeychainConfiguration.accessGroup)
@@ -110,6 +103,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
             debugPrint("Error updating keychain - \(error)")
         }
     }
+    
     
     func deleteLogin(username: String, password: String) {
         UserDefaults.standard.set(false, forKey: "hasLoginKey")
@@ -125,7 +119,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     func loginSuccess(userId: Int?, error: String?){
         guard let userId = userId else {
-            print("cannot login")
             OperationQueue.main.addOperation {
                 if let error = error {
                         self.showAlert(msg: error.description)
@@ -136,11 +129,14 @@ class ViewController: UIViewController, UITextFieldDelegate{
             return
         }
         userID = userId
+        
+        // Save login information to keychain for next login.
         saveLogin(username: emailText.text!, password: passwordText.text!)
         
-        // set offline to false
+        // Set offline to false
         offline = false
         
+        // navigate to other controller to display the publication list.
         DispatchQueue.main.async
         {
             self.performSegue(withIdentifier: "segueDisplayPubList", sender: self)
@@ -228,9 +224,12 @@ class ViewController: UIViewController, UITextFieldDelegate{
         }
         task.resume()
     }
-
+    
+    
+    // MARK: Actions
+    // User taps 'browse offline'.
     @IBAction func browseOffline(_ sender: UIButton) {
-        offline = true
+        offline = true  // will be sent to next controller for instructing offline behaviours.
         
         // Check if the user has login before
         if let lastLoginDate = UserDefaults.standard.object(forKey: "loginDate") as? Date {
@@ -239,7 +238,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
             if today > expiredDate {
                 showAlert(msg: "The \(Constants.SESSION) days' limitation for offline browsing is expired. Please login again.")
             }
-        } else {
+        } else { // no login history
             showAlert(msg: "Sorry. You don't have the authorization to access the offline data.")
         }
 
@@ -257,7 +256,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
         }
     }
 
-    // MARK: Actions
+    
     @IBAction func loginAction(_ sender: UIButton) {
         guard let email = emailText.text, !email.isEmpty else{
             let alertController = UIAlertController(title:"STP in Pocket", message: "Please enter your email address", preferredStyle: UIAlertControllerStyle.alert)
@@ -279,7 +278,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
             self.present(alertController, animated: true, completion: nil)
             return
         }
-        //debugPrint("email=" + email + ", pwd=" + pwd)
         checkLogin(email: email, password: pwd)
     }
 }

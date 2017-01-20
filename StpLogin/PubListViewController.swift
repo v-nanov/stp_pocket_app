@@ -20,7 +20,7 @@ class PubListViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140;
 
-        if offline ==  false  {
+        if offline ==  false {
             callGetPubsAPI()
         } else {
             browseLocal()
@@ -30,7 +30,6 @@ class PubListViewController: UITableViewController {
     
     // browse publications in local database
     func browseLocal() {
-        debugPrint("browse local publications...")
         let pubs = StpDB.instance.getPublications()
         
         for item in pubs {
@@ -64,14 +63,12 @@ class PubListViewController: UITableViewController {
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode == 404 {
                 print("404")
-                //self.loginSuccess(userId: nil, error: "Bad username/password.")
                 return
             }
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
                 print("statusCode should be 200, but is \(httpStatus.statusCode)")
                 print("error is \(error), \(response.debugDescription)")
-                //self.loginSuccess(userId: nil, error: error.debugDescription)
                 return
             }
             // parse the result as JSON
@@ -229,14 +226,12 @@ class PubListViewController: UITableViewController {
                 return
             }
             // parse the result as JSON
-            debugPrint("download successfully. begin to save the data...")
+            // debugPrint("download successfully. begin to save the data...")
             self.save_publication(jsonData: data!)
-            self.showAlert(msg: "\(pub) downloaded!")
+            self.do_table_refresh()
         }
         task.resume()
     }
-    
-
     
     
     func save_publication(jsonData: Data) {
