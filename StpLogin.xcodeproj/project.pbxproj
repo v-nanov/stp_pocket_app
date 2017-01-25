@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E6517FA11E37A5DB005A4568 /* uiColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6517FA01E37A5DB005A4568 /* uiColorExtension.swift */; };
+		E6517FA31E37D667005A4568 /* Myriad Pro Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6517FA21E37D667005A4568 /* Myriad Pro Regular.ttf */; };
+		E6517FA51E39176B005A4568 /* NavigationContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6517FA41E39176B005A4568 /* NavigationContoller.swift */; };
 		E664AD7D1DEF488A0043A285 /* TopicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E664AD7C1DEF488A0043A285 /* TopicTableViewCell.swift */; };
+		E6AE63111E36BEBA008EBEF8 /* textFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AE63101E36BEBA008EBEF8 /* textFieldExtension.swift */; };
 		E6C1D8261DE79B9400B7AEDC /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C1D8251DE79B9400B7AEDC /* Constant.swift */; };
 		E6C3FFBE1E0C48F80067A04C /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C3FFBD1E0C48F80067A04C /* Model.swift */; };
 		E6C3FFBF1E0C526B0067A04C /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6C3FFB31E0B3E140067A04C /* SQLite.framework */; };
@@ -49,7 +53,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E6517FA01E37A5DB005A4568 /* uiColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = uiColorExtension.swift; sourceTree = "<group>"; };
+		E6517FA21E37D667005A4568 /* Myriad Pro Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Myriad Pro Regular.ttf"; path = "../Myriad Pro Regular.ttf"; sourceTree = "<group>"; };
+		E6517FA41E39176B005A4568 /* NavigationContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationContoller.swift; sourceTree = "<group>"; };
 		E664AD7C1DEF488A0043A285 /* TopicTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicTableViewCell.swift; sourceTree = "<group>"; };
+		E6AE63101E36BEBA008EBEF8 /* textFieldExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = textFieldExtension.swift; sourceTree = "<group>"; };
 		E6C1D8251DE79B9400B7AEDC /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		E6C3FFB31E0B3E140067A04C /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = Carthage/Build/iOS/SQLite.framework; sourceTree = "<group>"; };
 		E6C3FFB91E0B3EA10067A04C /* SQLite.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SQLite.framework.dSYM; path = Carthage/Build/iOS/SQLite.framework.dSYM; sourceTree = "<group>"; };
@@ -93,6 +101,7 @@
 		E6F14A261DC8FBA0005C869D = {
 			isa = PBXGroup;
 			children = (
+				E6517FA21E37D667005A4568 /* Myriad Pro Regular.ttf */,
 				E6C3FFB91E0B3EA10067A04C /* SQLite.framework.dSYM */,
 				E6C3FFB31E0B3E140067A04C /* SQLite.framework */,
 				E6FE75C81E0B37160026F2AF /* Cartfile */,
@@ -116,7 +125,10 @@
 				E6C3FFBD1E0C48F80067A04C /* Model.swift */,
 				E6F14A321DC8FBA0005C869D /* AppDelegate.swift */,
 				E6F14A341DC8FBA0005C869D /* ViewController.swift */,
+				E6AE63101E36BEBA008EBEF8 /* textFieldExtension.swift */,
+				E6517FA01E37A5DB005A4568 /* uiColorExtension.swift */,
 				E6F14A361DC8FBA0005C869D /* Main.storyboard */,
+				E6517FA41E39176B005A4568 /* NavigationContoller.swift */,
 				E6FE75C41DFF501C0026F2AF /* KeychainConfiguration.swift */,
 				E6FE75C61DFF52F90026F2AF /* KeychainPasswordItem.swift */,
 				E6FE75C21DF87BF70026F2AF /* ParaHeaderCell.swift */,
@@ -203,6 +215,7 @@
 			files = (
 				E6F14A401DC8FBA1005C869D /* LaunchScreen.storyboard in Resources */,
 				E6F14A3D1DC8FBA1005C869D /* Assets.xcassets in Resources */,
+				E6517FA31E37D667005A4568 /* Myriad Pro Regular.ttf in Resources */,
 				E6FE75C91E0B37170026F2AF /* Cartfile in Resources */,
 				E6F14A381DC8FBA0005C869D /* Main.storyboard in Resources */,
 			);
@@ -232,7 +245,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6ED6EE01DCA8AB000678D73 /* PubListViewController.swift in Sources */,
+				E6AE63111E36BEBA008EBEF8 /* textFieldExtension.swift in Sources */,
 				E6F14A351DC8FBA0005C869D /* ViewController.swift in Sources */,
+				E6517FA51E39176B005A4568 /* NavigationContoller.swift in Sources */,
 				E6FE75C11DF73FE10026F2AF /* ParaTableViewController.swift in Sources */,
 				E6FE75B51DF1DC420026F2AF /* RulebookCell.swift in Sources */,
 				E6FE75B71DF610F80026F2AF /* SectionTableViewController.swift in Sources */,
@@ -247,6 +262,7 @@
 				E6FE75B91DF61DD40026F2AF /* SectionCell.swift in Sources */,
 				E6F14A331DC8FBA0005C869D /* AppDelegate.swift in Sources */,
 				E6FE75C31DF87BF70026F2AF /* ParaHeaderCell.swift in Sources */,
+				E6517FA11E37A5DB005A4568 /* uiColorExtension.swift in Sources */,
 				E6C3FFBE1E0C48F80067A04C /* Model.swift in Sources */,
 				E6FE75BF1DF73D220026F2AF /* ParaTableViewCell.swift in Sources */,
 				E6F14A3B1DC8FBA0005C869D /* StpLogin.xcdatamodeld in Sources */,

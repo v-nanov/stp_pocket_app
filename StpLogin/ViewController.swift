@@ -47,6 +47,15 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
     
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        emailText.setBottomBorder(color: "ed9022")
+        passwordText.setBottomBorder(color: "ed9022")
+    }
+    
+    
+    
     // MARK: dismiss the keyboard when user click the view other than the text input box.
     func handleViewTap(_ sender: UITapGestureRecognizer){
         emailText.resignFirstResponder()

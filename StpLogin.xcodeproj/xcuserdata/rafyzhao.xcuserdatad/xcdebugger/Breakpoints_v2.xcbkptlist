@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StpLogin/ViewController.swift"
-            timestampString = "506623917.268471"
+            timestampString = "507058060.8691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
             landmarkName = "checkLogin(email:password:)"
             landmarkType = "7">
          </BreakpointContent>
