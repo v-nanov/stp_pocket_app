@@ -30,14 +30,14 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="4iJ-e5-drR"/>
                                 </constraints>
-                                <color key="textColor" red="0.059922957970000003" green="0.12559196449999999" blue="0.49590968590000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.20392156862745098" green="0.2196078431372549" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="246" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Hp-4F-9MT">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.20392156859999999" green="0.21960784310000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ci5-RT-kIq">
@@ -118,6 +118,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="SZc-Et-IEo"/>
                     <connections>
+                        <outlet property="buttonBrowse" destination="GZT-eJ-bvr" id="7uO-3u-H2V"/>
                         <outlet property="emailText" destination="66I-Mq-c1s" id="p7g-kT-xn7"/>
                         <outlet property="passwordText" destination="6Hp-4F-9MT" id="eYo-aQ-ytq"/>
                         <segue destination="nP9-n1-hwM" kind="show" identifier="segueDisplayPubList" id="hDL-dD-6OE"/>
@@ -125,7 +126,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1076" y="138.98050974512745"/>
+            <point key="canvasLocation" x="818" y="143"/>
         </scene>
         <!--Pub List View Controller-->
         <scene sceneID="FBv-iT-fMT">
@@ -167,7 +168,11 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="otm-NJ-scc" id="vWX-lj-Gxc">
                                     <frame key="frameInset" width="375" height="34"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -177,9 +182,11 @@
                     </tableView>
                     <connections>
                         <segue destination="f1n-cb-Ijo" kind="show" identifier="segueTopic" id="ArF-Mf-geJ"/>
+                        <segue destination="43S-vA-a39" kind="unwind" identifier="unwindToLogin" unwindAction="unwindToLoginWithSegue:" id="fuj-an-ALc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DQY-hz-I8h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="43S-vA-a39" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1812" y="138.98050974512745"/>
         </scene>
@@ -217,13 +224,16 @@
                                     <outlet property="titleLabel" destination="Ihd-Ih-Nxp" id="PJS-ZB-D8x"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="header" id="JDQ-Rj-C3Y">
+                            <tableViewCell clipsSubviews="YES" contentMode="center" selectionStyle="default" indentationWidth="10" reuseIdentifier="header" id="JDQ-Rj-C3Y">
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JDQ-Rj-C3Y" id="Yg2-ED-kbu">
                                     <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -233,9 +243,11 @@
                     </tableView>
                     <connections>
                         <segue destination="qYF-Si-sYZ" kind="show" identifier="segueRulebook" id="4xK-Vj-6LG"/>
+                        <segue destination="6Pg-ye-bUa" kind="unwind" identifier="unwindToLogin" unwindAction="unwindToLoginWithSegue:" id="3ea-h6-2La"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yYa-W9-Ave" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="6Pg-ye-bUa" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2604" y="152.47376311844079"/>
         </scene>
@@ -279,7 +291,11 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b5W-Xv-D2g" id="FAb-nx-CiD">
                                     <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -289,9 +305,11 @@
                     </tableView>
                     <connections>
                         <segue destination="dUw-vO-chy" kind="show" identifier="segueSection" id="whQ-OC-TTL"/>
+                        <segue destination="qaN-5t-7bu" kind="unwind" identifier="unwindToLogin" unwindAction="unwindToLoginWithSegue:" id="c9V-TW-Inh"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MYs-CB-TiO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="qaN-5t-7bu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3340" y="152"/>
         </scene>
@@ -336,6 +354,7 @@
                                     <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -345,9 +364,11 @@
                     </tableView>
                     <connections>
                         <segue destination="jnH-sV-L62" kind="show" identifier="segueParalist" id="oeE-gN-htU"/>
+                        <segue destination="o4C-NC-hkj" kind="unwind" identifier="unwindToLogin" unwindAction="unwindToLoginWithSegue:" id="Vsd-rQ-6QV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fvZ-KQ-EdC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="o4C-NC-hkj" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4087" y="114"/>
         </scene>
@@ -416,8 +437,12 @@
                             <outlet property="delegate" destination="jnH-sV-L62" id="U1F-R7-zKt"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="f9z-rv-mke" kind="unwind" identifier="unwindToLogin" unwindAction="unwindToLoginWithSegue:" id="lXi-RQ-pUe"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JUq-oF-HnZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="f9z-rv-mke" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4860" y="114"/>
         </scene>
@@ -426,9 +451,13 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dbu-1c-AgJ" customClass="NavigationController" customModule="StpLogin" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="GHm-2y-eXM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="GHm-2y-eXM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.20392156859999999" green="0.21960784310000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

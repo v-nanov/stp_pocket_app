@@ -34,6 +34,10 @@ class ParaTableViewController: UITableViewController {
         tableView.sectionHeaderHeight = UITableViewAutomaticDimension
         tableView.estimatedSectionHeaderHeight = 25;
 
+        navigationItem.title = "PARAGRAPH"
+        self.navigationController?.navigationBar.topItem!.title = "Back"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
+        
         guard sectionKey != nil else {
             debugPrint("empty sectionKey")
             return
@@ -44,6 +48,11 @@ class ParaTableViewController: UITableViewController {
         } else {
             browseLocal()
         }
+    }
+    
+    
+    func signOut() {
+        self.performSegue(withIdentifier: "unwindToLogin", sender: self)
     }
     
     

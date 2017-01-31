@@ -14,17 +14,27 @@ class PubListViewController: UITableViewController {
     var TableData: Array<String> = Array<String>()
     var acronym: String?
     var offline = false
+    var publicationTitle: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140;
 
+        navigationItem.title = Constants.TITLE
+        navigationItem.setHidesBackButton(true, animated: false)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
         if offline ==  false {
             callGetPubsAPI()
         } else {
             browseLocal()
         }
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.title = Constants.TITLE
     }
     
     
@@ -38,6 +48,21 @@ class PubListViewController: UITableViewController {
             
             TableData.append(acronym + ": " + title)
         }
+    }
+    
+    func signOut() {
+        self.performSegue(withIdentifier: "unwindToLogin", sender: self)
+    }
+    
+    
+    func showActivityIndicator(uiView: UIView) {
+        let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+        actInd.frame = CGRect(x: 0, y: 0, width: 40.0, height: 40.0)
+        actInd.center = uiView.center
+        actInd.hidesWhenStopped = true
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        uiView.addSubview(actInd)
+        actInd.stopAnimating()
     }
     
     
@@ -176,7 +201,7 @@ class PubListViewController: UITableViewController {
             let alert: UIAlertController = UIAlertController(title: "Download Publication", message: "Begin to download " + cellValue.substring(to: endInt!) + "?", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (UIAlertAction) -> Void in
-                
+                self.showActivityIndicator(uiView: self.view)
                 // move to a background thread to download publication.
                 DispatchQueue.global(qos: .userInitiated).async {
                     self.downloadPublication(pub: cellValue.substring(to: endInt!))
@@ -195,6 +220,7 @@ class PubListViewController: UITableViewController {
     
     func downloadPublication(pub: String) {
         print("begin to download " + pub)
+        
         
         // create request
         let apiURL: String = Constants.URL_END_POINT + "Publications?acronym=\(pub)"
@@ -261,7 +287,6 @@ class PubListViewController: UITableViewController {
                 print("cannot save publication: \(ac)")
                 return
             }
-        
         }
         
         // Save topic.
@@ -345,21 +370,16 @@ class PubListViewController: UITableViewController {
                 }
             }
         }
-
-
-        
-            
-       
     }
+    
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableCell(withIdentifier: "header")
-        header?.backgroundColor = UIColor.blue
         
         let title = UILabel()
-        title.font = UIFont(name: "Futura", size: 18)!
-        title.text = "Select a publication blew:"
-        title.textColor = UIColor.red
+        title.font = UIFont(name: "Myriad Pro", size: 18)!
+        title.text = "Select a publication below"
+        title.textColor = UIColor.white
         
         header?.textLabel?.font = title.font
         header?.textLabel?.textColor = title.textColor
@@ -376,6 +396,7 @@ class PubListViewController: UITableViewController {
         if segue.identifier == "segueTopic" {
             if let destination = segue.destination as? TopicTableViewController {
                 destination.acronym = acronym
+                destination.publicationTitle = publicationTitle
                 destination.offline = offline
             }
         }
@@ -391,58 +412,11 @@ class PubListViewController: UITableViewController {
         let endInt = range1?.lowerBound
         
         acronym = cellValue.substring(to: endInt!)
+        publicationTitle = cellValue.substring(from: cellValue.index(after: endInt!))
         // print("the row is tabbed:" + acronym!)
         
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: "segueTopic", sender: self)
         }
     }
-
- 
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -15,6 +15,7 @@ class SectionTableViewController: UITableViewController {
     var offline: Bool = false // passed from Rulebook controller
     var TableData: Array<String> = Array<String>()
     var sectionKeyArray: Array<Int> = Array<Int>()
+    var rbName: String?
     
 
     override func viewDidLoad() {
@@ -24,7 +25,11 @@ class SectionTableViewController: UITableViewController {
         tableView.separatorInset = UIEdgeInsets.zero
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140;
-
+        
+        navigationItem.title = "SECTION"
+        self.navigationController?.navigationBar.topItem!.title = "Back"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
+        
         guard rbKey != nil else {
             debugPrint("empty rbKey")
             return
@@ -34,6 +39,17 @@ class SectionTableViewController: UITableViewController {
         } else {
             browseLocal()
         }
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.title = "Section"
+    }
+    
+    
+    func signOut() {
+        self.performSegue(withIdentifier: "unwindToLogin", sender: self)
     }
     
     
@@ -158,12 +174,11 @@ class SectionTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableCell(withIdentifier: "header")
-        header?.backgroundColor = UIColor.blue
         
         let title = UILabel()
-        title.font = UIFont(name: "Futura", size: 18)!
-        title.text = "Select one of the sections below"
-        title.textColor = UIColor.red
+        title.font = UIFont(name: "Myriad Pro", size: 18)!
+        title.text = rbName
+        title.textColor = UIColor.white
         
         header?.textLabel?.font = title.font
         header?.textLabel?.textColor = title.textColor

@@ -11,20 +11,25 @@ import UIKit
 class RulebookTableViewController: UITableViewController {
     
     var topicKey: Int? // topicKey will be passed from topic controller.
+    var topic: String? // topic will be passed from topic controller.
     var rbKey: Int? // rbKey will be passed to section controller.
     var offline: Bool = false // passed from topic controller
     var TableData: Array<String> = Array<String>()
     var rbKeyArray: Array<Int> = Array<Int>()
+    var rbName: String?
         
-        override func viewDidLoad() {
+    override func viewDidLoad() {
             super.viewDidLoad()
             
             tableView.layoutMargins = UIEdgeInsets.zero
             tableView.separatorInset = UIEdgeInsets.zero
             tableView.rowHeight = UITableViewAutomaticDimension
             tableView.estimatedRowHeight = 140;
-
-            debugPrint("passed offline: \(offline)");
+            
+            navigationItem.title = "RULE BOOK"
+            self.navigationController?.navigationBar.topItem!.title = "Back"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
+            
             guard topicKey != nil else {
                 debugPrint("empty topicKey")
                 return
@@ -36,7 +41,18 @@ class RulebookTableViewController: UITableViewController {
                 browseLocal()
             }
             
-        }
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.title = "Rule Book"
+    }
+    
+    
+    func signOut() {
+        self.performSegue(withIdentifier: "unwindToLogin", sender: self)
+    }
     
     
     // browse publications in local database
@@ -102,8 +118,7 @@ class RulebookTableViewController: UITableViewController {
                 let rbName = item["rbName"] as? String
                 let summary = item["summary"] as? String
                 let rbKey = item["rbKey"] as? Int
-                debugPrint(rbName)
-                debugPrint(summary)
+                
                 TableData.append(rbName!)
                 rbKeyArray.append(rbKey!)
             }
@@ -129,6 +144,7 @@ class RulebookTableViewController: UITableViewController {
             if let destination = segue.destination as? SectionTableViewController {
                 destination.rbKey = rbKey
                 destination.offline = offline
+                destination.rbName = rbName
             }
         }
     }
@@ -138,6 +154,7 @@ class RulebookTableViewController: UITableViewController {
         
         let row = indexPath.row
         rbKey = rbKeyArray[row]
+        rbName = TableData[row]
         print("the row is tabbed:\(rbKey)")
         
         DispatchQueue.main.async {
@@ -169,12 +186,11 @@ class RulebookTableViewController: UITableViewController {
         
         override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
             let header = tableView.dequeueReusableCell(withIdentifier: "header")
-            header?.backgroundColor = UIColor.blue
             
             let title = UILabel()
-            title.font = UIFont(name: "Futura", size: 18)!
-            title.text = "Select one rulebook to continue"
-            title.textColor = UIColor.red
+            title.font = UIFont(name: "Myriad Pro", size: 18)!
+            title.text = topic
+            title.textColor = UIColor.white
             
             header?.textLabel?.font = title.font
             header?.textLabel?.textColor = title.textColor
@@ -186,61 +202,5 @@ class RulebookTableViewController: UITableViewController {
         override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
             return 44
         }
-        
-        
-        /*
-         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-         
-         // Configure the cell...
-         
-         return cell
-         }
-         */
-        
-        /*
-         // Override to support conditional editing of the table view.
-         override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-         // Return false if you do not want the specified item to be editable.
-         return true
-         }
-         */
-        
-        /*
-         // Override to support editing the table view.
-         override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-         if editingStyle == .delete {
-         // Delete the row from the data source
-         tableView.deleteRows(at: [indexPath], with: .fade)
-         } else if editingStyle == .insert {
-         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-         }
-         }
-         */
-        
-        /*
-         // Override to support rearranging the table view.
-         override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-         
-         }
-         */
-        
-        /*
-         // Override to support conditional rearranging of the table view.
-         override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-         // Return false if you do not want the item to be re-orderable.
-         return true
-         }
-         */
-        
-        /*
-         // MARK: - Navigation
-         
-         // In a storyboard-based application, you will often want to do a little preparation before navigation
-         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         // Get the new view controller using segue.destinationViewController.
-         // Pass the selected object to the new view controller.
-         }
-         */
         
 }

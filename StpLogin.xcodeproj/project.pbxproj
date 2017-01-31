@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E61B337D1E392ACC00BFDFA8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61B337C1E392ACC00BFDFA8 /* ViewController.swift */; };
 		E6517FA11E37A5DB005A4568 /* uiColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6517FA01E37A5DB005A4568 /* uiColorExtension.swift */; };
 		E6517FA31E37D667005A4568 /* Myriad Pro Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6517FA21E37D667005A4568 /* Myriad Pro Regular.ttf */; };
 		E6517FA51E39176B005A4568 /* NavigationContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6517FA41E39176B005A4568 /* NavigationContoller.swift */; };
@@ -18,7 +19,6 @@
 		E6C3FFC01E0C526B0067A04C /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6C3FFB31E0B3E140067A04C /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E6ED6EE01DCA8AB000678D73 /* PubListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ED6EDF1DCA8AB000678D73 /* PubListViewController.swift */; };
 		E6F14A331DC8FBA0005C869D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F14A321DC8FBA0005C869D /* AppDelegate.swift */; };
-		E6F14A351DC8FBA0005C869D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F14A341DC8FBA0005C869D /* ViewController.swift */; };
 		E6F14A381DC8FBA0005C869D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6F14A361DC8FBA0005C869D /* Main.storyboard */; };
 		E6F14A3B1DC8FBA0005C869D /* StpLogin.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E6F14A391DC8FBA0005C869D /* StpLogin.xcdatamodeld */; };
 		E6F14A3D1DC8FBA1005C869D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6F14A3C1DC8FBA1005C869D /* Assets.xcassets */; };
@@ -53,6 +53,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E61B337C1E392ACC00BFDFA8 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E6517FA01E37A5DB005A4568 /* uiColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = uiColorExtension.swift; sourceTree = "<group>"; };
 		E6517FA21E37D667005A4568 /* Myriad Pro Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Myriad Pro Regular.ttf"; path = "../Myriad Pro Regular.ttf"; sourceTree = "<group>"; };
 		E6517FA41E39176B005A4568 /* NavigationContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationContoller.swift; sourceTree = "<group>"; };
@@ -65,7 +66,6 @@
 		E6ED6EDF1DCA8AB000678D73 /* PubListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubListViewController.swift; sourceTree = "<group>"; };
 		E6F14A2F1DC8FBA0005C869D /* StpLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StpLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6F14A321DC8FBA0005C869D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E6F14A341DC8FBA0005C869D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E6F14A371DC8FBA0005C869D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E6F14A3A1DC8FBA0005C869D /* StpLogin.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StpLogin.xcdatamodel; sourceTree = "<group>"; };
 		E6F14A3C1DC8FBA1005C869D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -124,10 +124,11 @@
 				E6FE75CA1E0B3B240026F2AF /* StpDb.swift */,
 				E6C3FFBD1E0C48F80067A04C /* Model.swift */,
 				E6F14A321DC8FBA0005C869D /* AppDelegate.swift */,
-				E6F14A341DC8FBA0005C869D /* ViewController.swift */,
+				E6C1D8251DE79B9400B7AEDC /* Constant.swift */,
 				E6AE63101E36BEBA008EBEF8 /* textFieldExtension.swift */,
 				E6517FA01E37A5DB005A4568 /* uiColorExtension.swift */,
 				E6F14A361DC8FBA0005C869D /* Main.storyboard */,
+				E61B337C1E392ACC00BFDFA8 /* ViewController.swift */,
 				E6517FA41E39176B005A4568 /* NavigationContoller.swift */,
 				E6FE75C41DFF501C0026F2AF /* KeychainConfiguration.swift */,
 				E6FE75C61DFF52F90026F2AF /* KeychainPasswordItem.swift */,
@@ -142,7 +143,6 @@
 				E6FE75BC1DF627F30026F2AF /* RulebookTableViewController.swift */,
 				E6FE75C01DF73FE10026F2AF /* ParaTableViewController.swift */,
 				E6FE75B61DF610F80026F2AF /* SectionTableViewController.swift */,
-				E6C1D8251DE79B9400B7AEDC /* Constant.swift */,
 				E6F14A3C1DC8FBA1005C869D /* Assets.xcassets */,
 				E6F14A3E1DC8FBA1005C869D /* LaunchScreen.storyboard */,
 				E6F14A411DC8FBA1005C869D /* Info.plist */,
@@ -246,9 +246,9 @@
 			files = (
 				E6ED6EE01DCA8AB000678D73 /* PubListViewController.swift in Sources */,
 				E6AE63111E36BEBA008EBEF8 /* textFieldExtension.swift in Sources */,
-				E6F14A351DC8FBA0005C869D /* ViewController.swift in Sources */,
 				E6517FA51E39176B005A4568 /* NavigationContoller.swift in Sources */,
 				E6FE75C11DF73FE10026F2AF /* ParaTableViewController.swift in Sources */,
+				E61B337D1E392ACC00BFDFA8 /* ViewController.swift in Sources */,
 				E6FE75B51DF1DC420026F2AF /* RulebookCell.swift in Sources */,
 				E6FE75B71DF610F80026F2AF /* SectionTableViewController.swift in Sources */,
 				E6F284341DEE0E33003B5DA3 /* TopicTableViewController.swift in Sources */,

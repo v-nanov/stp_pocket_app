@@ -14,6 +14,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var emailText: UITextField!
     
+    @IBOutlet weak var buttonBrowse: UIButton!
     var userID: Int?
     var offline: Bool = false
     
@@ -44,6 +45,15 @@ class ViewController: UIViewController, UITextFieldDelegate{
                 }
             }
         }
+        
+        // Set the browse offline button according to if the use has downloaded data.
+        if hasOfflineData() == false {
+            buttonBrowse.isEnabled = false
+            buttonBrowse.backgroundColor = UIColor.lightGray
+        } else {
+            buttonBrowse.isEnabled = true
+            buttonBrowse.backgroundColor = UIColor(hex: "ed9022")
+        }
     }
     
     
@@ -53,7 +63,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
         emailText.setBottomBorder(color: "ed9022")
         passwordText.setBottomBorder(color: "ed9022")
     }
-    
     
     
     // MARK: dismiss the keyboard when user click the view other than the text input box.
@@ -235,6 +244,29 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
     
     
+    func hasOfflineData() -> Bool {
+        // Check if the user has login before
+        if let lastLoginDate = UserDefaults.standard.object(forKey: "loginDate") as? Date {
+            let expiredDate = lastLoginDate.addingTimeInterval( 24.0 * 60.0 * 60.0 * Constants.SESSION)
+            let today = Date()
+            if today > expiredDate {
+                return false
+            }
+        } else { // no login history
+            return false
+        }
+        
+        // Check if there is any offline data.
+        let publications = StpDB.instance.getPublications()
+        
+        if publications.count == 0 {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    
     // MARK: Actions
     // User taps 'browse offline'.
     @IBAction func browseOffline(_ sender: UIButton) {
@@ -255,7 +287,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
         let publications = StpDB.instance.getPublications()
         
         if publications.count == 0 {
-            showAlert(msg: "No publication is available for browse offline. Please download some first.")
+            showAlert(msg: "No publication is available for browsing offline. Please download some first.")
         } else {
             DispatchQueue.main.async
             {
@@ -289,5 +321,8 @@ class ViewController: UIViewController, UITextFieldDelegate{
         }
         checkLogin(email: email, password: pwd)
     }
+    
+    
+    @IBAction func unwindToLogin(segue: UIStoryboardSegue){}
 }
 
