@@ -36,7 +36,7 @@ class ParaTableViewController: UITableViewController {
 
         navigationItem.title = "PARAGRAPH"
         self.navigationController?.navigationBar.topItem!.title = "Back"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
+        
         
         guard sectionKey != nil else {
             debugPrint("empty sectionKey")
@@ -44,8 +44,10 @@ class ParaTableViewController: UITableViewController {
         }
             
         if offline == false {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
             callWebAPI()
         } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Exit", style: .plain, target: self, action: #selector(signOut))
             browseLocal()
         }
     }
@@ -202,10 +204,10 @@ class ParaTableViewController: UITableViewController {
             if paraNumArray.count > 0
             {
                 if let row = rowTapped {
-                    header.paraHeader.text = paraNumArray[row] + " " + questionArray[row]
+                    header.paraHeader.text = paraNumArray[row] + " " + questionArray[row] + "\n\n" + guideNoteArray[row]
                 }
                 else{
-                    header.paraHeader.text = paraNumArray[0] + " " + questionArray[0]
+                    header.paraHeader.text = paraNumArray[0] + " " + questionArray[0] + "\n\n" + guideNoteArray[0]
                 }
             }
             else{

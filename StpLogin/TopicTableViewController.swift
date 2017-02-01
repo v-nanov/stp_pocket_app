@@ -27,7 +27,6 @@ class TopicTableViewController: UITableViewController {
 
         navigationItem.title = "TOPICS"
         self.navigationController?.navigationBar.topItem!.title = "Back"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
         
         guard acronym != nil else {
             debugPrint("empty acronym")
@@ -35,8 +34,10 @@ class TopicTableViewController: UITableViewController {
         }
         
         if offline == false {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
             callGetTopicsAPI()
         } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Exit", style: .plain, target: self, action: #selector(signOut))
             browseLocal()
         }
     }

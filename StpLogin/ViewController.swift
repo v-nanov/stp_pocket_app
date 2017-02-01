@@ -323,6 +323,15 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
     
     
-    @IBAction func unwindToLogin(segue: UIStoryboardSegue){}
+    @IBAction func unwindToLogin(segue: UIStoryboardSegue) {
+        // Set the browse offline button according to if the use has downloaded data.
+        if hasOfflineData() == false {
+            buttonBrowse.isEnabled = false
+            buttonBrowse.backgroundColor = UIColor.lightGray
+        } else {
+            buttonBrowse.isEnabled = true
+            buttonBrowse.backgroundColor = UIColor(hex: "ed9022")
+        }
+    }
 }
 

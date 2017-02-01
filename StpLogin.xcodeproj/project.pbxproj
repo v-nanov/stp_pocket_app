@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09102FF81E4138E800B6405B /* Myriad Pro Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09102FF71E4138E800B6405B /* Myriad Pro Regular.ttf */; };
 		E61B337D1E392ACC00BFDFA8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61B337C1E392ACC00BFDFA8 /* ViewController.swift */; };
 		E6517FA11E37A5DB005A4568 /* uiColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6517FA01E37A5DB005A4568 /* uiColorExtension.swift */; };
-		E6517FA31E37D667005A4568 /* Myriad Pro Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6517FA21E37D667005A4568 /* Myriad Pro Regular.ttf */; };
 		E6517FA51E39176B005A4568 /* NavigationContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6517FA41E39176B005A4568 /* NavigationContoller.swift */; };
 		E664AD7D1DEF488A0043A285 /* TopicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E664AD7C1DEF488A0043A285 /* TopicTableViewCell.swift */; };
 		E6AE63111E36BEBA008EBEF8 /* textFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AE63101E36BEBA008EBEF8 /* textFieldExtension.swift */; };
@@ -53,9 +53,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		09102FF71E4138E800B6405B /* Myriad Pro Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Myriad Pro Regular.ttf"; sourceTree = "<group>"; };
 		E61B337C1E392ACC00BFDFA8 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E6517FA01E37A5DB005A4568 /* uiColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = uiColorExtension.swift; sourceTree = "<group>"; };
-		E6517FA21E37D667005A4568 /* Myriad Pro Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Myriad Pro Regular.ttf"; path = "../Myriad Pro Regular.ttf"; sourceTree = "<group>"; };
 		E6517FA41E39176B005A4568 /* NavigationContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationContoller.swift; sourceTree = "<group>"; };
 		E664AD7C1DEF488A0043A285 /* TopicTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicTableViewCell.swift; sourceTree = "<group>"; };
 		E6AE63101E36BEBA008EBEF8 /* textFieldExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = textFieldExtension.swift; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 		E6F14A261DC8FBA0005C869D = {
 			isa = PBXGroup;
 			children = (
-				E6517FA21E37D667005A4568 /* Myriad Pro Regular.ttf */,
+				09102FF71E4138E800B6405B /* Myriad Pro Regular.ttf */,
 				E6C3FFB91E0B3EA10067A04C /* SQLite.framework.dSYM */,
 				E6C3FFB31E0B3E140067A04C /* SQLite.framework */,
 				E6FE75C81E0B37160026F2AF /* Cartfile */,
@@ -180,7 +180,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Rafy Zhao";
 				TargetAttributes = {
 					E6F14A2E1DC8FBA0005C869D = {
@@ -215,7 +215,7 @@
 			files = (
 				E6F14A401DC8FBA1005C869D /* LaunchScreen.storyboard in Resources */,
 				E6F14A3D1DC8FBA1005C869D /* Assets.xcassets in Resources */,
-				E6517FA31E37D667005A4568 /* Myriad Pro Regular.ttf in Resources */,
+				09102FF81E4138E800B6405B /* Myriad Pro Regular.ttf in Resources */,
 				E6FE75C91E0B37170026F2AF /* Cartfile in Resources */,
 				E6F14A381DC8FBA0005C869D /* Main.storyboard in Resources */,
 			);
@@ -309,6 +309,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -358,6 +359,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -395,7 +397,7 @@
 				INFOPLIST_FILE = StpLogin/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = stp.Login;
+				PRODUCT_BUNDLE_IDENTIFIER = STPocket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -414,7 +416,7 @@
 				INFOPLIST_FILE = StpLogin/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = stp.Login;
+				PRODUCT_BUNDLE_IDENTIFIER = STPocket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

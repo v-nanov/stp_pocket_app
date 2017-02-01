@@ -3,8 +3,8 @@
   - [Installation](#installation)
     - [Carthage](#carthage)
     - [CocoaPods](#cocoapods)
+    - [Swift Package Manager](#swift-package-manager)
     - [Manual](#manual)
-    - [Frameworkless Targets](#frameworkless-targets)
   - [Getting Started](#getting-started)
     - [Connecting to a Database](#connecting-to-a-database)
       - [Read-Write Databases](#read-write-databases)
@@ -78,7 +78,7 @@ install SQLite.swift with Carthage:
  2. Update your Cartfile to include the following:
 
     ```
-    github "stephencelis/SQLite.swift" ~> 0.11.1
+    github "stephencelis/SQLite.swift" ~> 0.11.2
     ```
 
  3. Run `carthage update` and [add the appropriate framework][Carthage Usage].
@@ -93,7 +93,11 @@ install SQLite.swift with Carthage:
 
 [CocoaPods][] is a dependency manager for Cocoa projects. To install SQLite.swift with CocoaPods:
 
- 1. Verify that your copy of Xcode is installed in the default location (`/Application/Xcode.app`).
+ 1. Verify that your copy of Xcode is installed and active in the default location (`/Applications/Xcode.app`).
+
+    ```sh
+    sudo xcode-select --switch /Applications/Xcode.app
+    ```
 
  2. Make sure CocoaPods is [installed][CocoaPods Installation] (SQLite.swift requires version 1.0.0 or greater).
 
@@ -108,7 +112,9 @@ install SQLite.swift with Carthage:
     ``` ruby
     use_frameworks!
 
-    pod 'SQLite.swift', '~> 0.11.1'
+    target 'YourAppTargetName' do
+        pod 'SQLite.swift', '~> 0.11.2'
+    end
     ```
 
  4. Run `pod install --repo-update`.
@@ -119,14 +125,18 @@ install SQLite.swift with Carthage:
  If you want to use a more recent version of SQLite than what is provided with the OS you can require the `standalone` subspec:
 
 ``` ruby
-    pod 'SQLite.swift/standalone', '~> 0.11.1'
+target 'YourAppTargetName' do
+  pod 'SQLite.swift/standalone', '~> 0.11.2'
+end
 ```
 
 By default this will use the most recent version of SQLite without any extras. If you want you can further customize this by adding another dependency to sqlite3 or one of its subspecs:
 
 ``` ruby
-    pod 'SQLite.swift/standalone', '~> 0.11.1'
-    pod 'sqlite3/fts5', '= 3.15.0'  # SQLite 3.15.0 with FTS5 enabled
+target 'YourAppTargetName' do
+  pod 'SQLite.swift/standalone', '~> 0.11.2'
+  pod 'sqlite3/fts5', '= 3.15.0'  # SQLite 3.15.0 with FTS5 enabled
+end
 ```
 
 See the [sqlite3 podspec][sqlite3pod] for more details.
@@ -137,7 +147,9 @@ If you want to use [SQLCipher][] with SQLite.swift you can require the `SQLCiphe
 subspec in your Podfile:
 
 ``` ruby
-    pod 'SQLite.swift/SQLCipher', '~> 0.11.1'
+target 'YourAppTargetName' do
+  pod 'SQLite.swift/SQLCipher', '~> 0.11.2'
+end
 ```
 
 This will automatically add a dependency to the SQLCipher pod as well as extend
@@ -156,6 +168,30 @@ try db.rekey("another secret")
 [sqlite3pod]: https://github.com/clemensg/sqlite3pod
 [SQLCipher]: https://www.zetetic.net/sqlcipher/
 
+### Swift Package Manager
+
+The [Swift Package Manager][] is a tool for managing the distribution of Swift code.
+It’s integrated with the Swift build system to automate the process of
+downloading, compiling, and linking dependencies.
+
+It is the recommended approach for using SQLite.swift in OSX CLI applications.
+
+ 1. Add the following to your `Package.swift` file:
+
+  ``` swift
+  dependencies: [
+    .Package(url: "https://github.com/stephencelis/SQLite.swift.git", majorVersion: 0, minor: 11)
+  ]
+  ```
+
+ 2. Build your project:
+
+  ``` sh
+  $ swift build -Xlinker -lsqlite3
+  ```
+
+[Swift Package Manager]: https://swift.org/package-manager
+
 ### Manual
 
 To install SQLite.swift as an Xcode sub-project:
@@ -172,24 +208,13 @@ To install SQLite.swift as an Xcode sub-project:
 
 You should now be able to `import SQLite` from any of your target’s source files and begin using SQLite.swift.
 
+Some additional steps are required to install the application on an actual device:
 
-### Frameworkless Targets
+ 5. In the **General** tab, click the **+** button under **Embedded Binaries**.
 
-It’s possible to use SQLite.swift in a target that doesn’t support frameworks, including iOS 7 apps and OS X command line tools, though it takes a little extra work.
+ 6. Select the appropriate **SQLite.framework** for your platform.
 
- 1. In your target’s **Build Phases**, add **libsqlite3.dylib** to the **Link Binary With Libraries** build phase.
-
- 2. Copy the SQLite.swift source files (from its **SQLite** directory) into your Xcode project.
-
- 3. Add the following lines to your project’s [bridging header](https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html#//apple_ref/doc/uid/TP40014216-CH10-XID_79) (a file usually in the form of `$(TARGET_NAME)-Bridging-Header.h`).
-
-    ``` swift
-    #import <sqlite3.h>
-    #import "SQLite-Bridging.h"
-    ```
-
-> _Note:_ Adding SQLite.swift source files directly to your application will both remove the `SQLite` module namespace (no need—or ability—to `import SQLite`) and expose internal functions and variables. You will need to rename anything that conflicts with code of your own. Please [report any bugs](https://github.com/stephencelis/SQLite.swift/issues/new) (_e.g._, segfaults) you encounter.
-
+ 7. **Add**.
 
 ## Getting Started
 
@@ -736,8 +761,12 @@ users.filter(verified || balance >= 10_000)
 
 We can build our own boolean expressions by using one of the many [filter operators and functions](#filter-operators-and-functions).
 
-> _Note:_ SQLite.swift defines `filter` instead of `where` because `where` is [a reserved keyword](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/LexicalStructure.html#//apple_ref/doc/uid/TP40014097-CH30-ID413).
+Instead of `filter` we can also use the `where` function which is an alias:
 
+``` swift
+users.where(id == 1)
+// SELECT * FROM "users" WHERE ("id" = 1)
+```
 
 ##### Filter Operators and Functions
 

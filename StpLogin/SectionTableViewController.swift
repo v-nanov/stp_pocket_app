@@ -28,15 +28,16 @@ class SectionTableViewController: UITableViewController {
         
         navigationItem.title = "SECTION"
         self.navigationController?.navigationBar.topItem!.title = "Back"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
         
         guard rbKey != nil else {
             debugPrint("empty rbKey")
             return
         }
         if offline == false {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
             callWebAPI()
         } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Exit", style: .plain, target: self, action: #selector(signOut))
             browseLocal()
         }
     }

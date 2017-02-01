@@ -28,7 +28,7 @@ class RulebookTableViewController: UITableViewController {
             
             navigationItem.title = "RULE BOOK"
             self.navigationController?.navigationBar.topItem!.title = "Back"
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
+        
             
             guard topicKey != nil else {
                 debugPrint("empty topicKey")
@@ -36,8 +36,10 @@ class RulebookTableViewController: UITableViewController {
             }
             
             if offline == false {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
                 callGetTopicsAPI()
             } else {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Exit", style: .plain, target: self, action: #selector(signOut))
                 browseLocal()
             }
             

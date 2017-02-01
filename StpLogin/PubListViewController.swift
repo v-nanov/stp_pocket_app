@@ -16,6 +16,8 @@ class PubListViewController: UITableViewController {
     var offline = false
     var publicationTitle: String?
 
+    var indicator = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -23,10 +25,15 @@ class PubListViewController: UITableViewController {
 
         navigationItem.title = Constants.TITLE
         navigationItem.setHidesBackButton(true, animated: false)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
+        
+       
+        
+        
         if offline ==  false {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
             callGetPubsAPI()
         } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Exit", style: .plain, target: self, action: #selector(signOut))
             browseLocal()
         }
     }
@@ -52,6 +59,14 @@ class PubListViewController: UITableViewController {
     
     func signOut() {
         self.performSegue(withIdentifier: "unwindToLogin", sender: self)
+    }
+    
+    func activityIndicator() {
+        indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        indicator.color = UIColor.red
+        indicator.center = self.view.center
+        self.view.addSubview(indicator)
     }
     
     
@@ -201,10 +216,15 @@ class PubListViewController: UITableViewController {
             let alert: UIAlertController = UIAlertController(title: "Download Publication", message: "Begin to download " + cellValue.substring(to: endInt!) + "?", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (UIAlertAction) -> Void in
-                self.showActivityIndicator(uiView: self.view)
+                self.indicator.startAnimating()
+                self.indicator.backgroundColor = UIColor.white
                 // move to a background thread to download publication.
                 DispatchQueue.global(qos: .userInitiated).async {
                     self.downloadPublication(pub: cellValue.substring(to: endInt!))
+                    DispatchQueue.main.async {
+                        self.indicator.stopAnimating()
+                        self.indicator.hidesWhenStopped = true
+                    }
                 }
             }));
             alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
@@ -255,6 +275,7 @@ class PubListViewController: UITableViewController {
             // debugPrint("download successfully. begin to save the data...")
             self.save_publication(jsonData: data!)
             self.do_table_refresh()
+           
         }
         task.resume()
     }
