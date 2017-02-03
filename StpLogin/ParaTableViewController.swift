@@ -184,37 +184,43 @@ class ParaTableViewController: UITableViewController {
     }
         
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)  as! ParaTableViewCell
-            cell.titleLabel.text = paraNumArray[indexPath.row] + "：" + citationArray[indexPath.row]
-            cell.titleLabel.textColor = UIColor(white: 114/225, alpha: 1)
-            cell.layoutMargins = UIEdgeInsets.zero
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)  as! ParaTableViewCell
+        cell.layoutMargins = UIEdgeInsets.zero
+        if indexPath.row == 0 {
+            cell.titleLabel.textColor = UIColor.black
+            // cell.titleLabel.backgroundColor = UIColor.lightGray
+            cell.titleLabel.font = UIFont(name: "Futura", size: 18)
             
-            return cell
+            if let row = rowTapped { // The first row will show the contents of the tapped row
+                cell.titleLabel.text = paraNumArray[row - 1] + " " + questionArray[row - 1] + "\n\n" + guideNoteArray[row]
+                
+            } else { // display the first row when no row is tapped.
+                cell.titleLabel.text = paraNumArray[0] + " " + questionArray[0] + "\n\n" + guideNoteArray[0]
+            }
+        } else {
+            cell.titleLabel.textColor = UIColor(white: 114/225, alpha: 1)
+            
+            
+            cell.titleLabel.text = paraNumArray[indexPath.row - 1] + "：" + citationArray[indexPath.row - 1]
+            
+        }
+        
+        return cell
     }
         
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
             
-            let header = tableView.dequeueReusableCell(withIdentifier: "header") as! ParaHeaderCell
-            
-            header.paraHeader.font = UIFont(name: "Futura", size: 18)
-            header.paraHeader.backgroundColor = UIColor.lightGray
-            
-            header.layoutMargins = UIEdgeInsets.zero
-            
-            if paraNumArray.count > 0
-            {
-                if let row = rowTapped {
-                    header.paraHeader.text = paraNumArray[row] + " " + questionArray[row] + "\n\n" + guideNoteArray[row]
-                }
-                else{
-                    header.paraHeader.text = paraNumArray[0] + " " + questionArray[0] + "\n\n" + guideNoteArray[0]
-                }
-            }
-            else{
-                    header.paraHeader.text = "Data loading..."
-            }
-            header.paraHeader.textColor = UIColor.black
-            
-            return header
+        let header = tableView.dequeueReusableCell(withIdentifier: "header")
+        
+        let title = UILabel()
+        title.font = UIFont(name: "Myriad Pro", size: 18)!
+        title.text = "Choose a paragraph to show detail"
+        title.textColor = UIColor.white
+        
+        header?.textLabel?.font = title.font
+        header?.textLabel?.textColor = title.textColor
+        header?.textLabel?.text = title.text
+        
+        return header
     }
 }

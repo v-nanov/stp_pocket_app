@@ -123,16 +123,18 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
     
     
-    func deleteLogin(username: String, password: String) {
+    func deleteLogin(username: String?) {
         UserDefaults.standard.set(false, forKey: "hasLoginKey")
+        if let user = username {
+            do {
+                let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName, account: user, accessGroup: KeychainConfiguration.accessGroup)
+                try passwordItem.deleteItem()
+            }
+            catch {
+                fatalError("Error deleting keychain - \(error)")
+            }
+        }
         
-        do {
-            let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName, account: username, accessGroup: KeychainConfiguration.accessGroup)
-            try passwordItem.deleteItem()
-        }
-        catch {
-            fatalError("Error deleting keychain - \(error)")
-        }
     }
     
     func loginSuccess(userId: Int?, error: String?){
@@ -324,10 +326,18 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     
     @IBAction func unwindToLogin(segue: UIStoryboardSegue) {
+        if offline == false {
+            debugPrint("sign out, delete key chain.")
+            deleteLogin(username: emailText.text)
+            emailText.text = ""
+            passwordText.text = ""
+        }
         // Set the browse offline button according to if the use has downloaded data.
         if hasOfflineData() == false {
+            
             buttonBrowse.isEnabled = false
             buttonBrowse.backgroundColor = UIColor.lightGray
+            
         } else {
             buttonBrowse.isEnabled = true
             buttonBrowse.backgroundColor = UIColor(hex: "ed9022")

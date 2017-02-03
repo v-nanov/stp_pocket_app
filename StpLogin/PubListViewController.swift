@@ -16,7 +16,7 @@ class PubListViewController: UITableViewController {
     var offline = false
     var publicationTitle: String?
 
-    var indicator = UIActivityIndicatorView()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +27,6 @@ class PubListViewController: UITableViewController {
         navigationItem.setHidesBackButton(true, animated: false)
         
        
-        
-        
         if offline ==  false {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
             callGetPubsAPI()
@@ -61,25 +59,33 @@ class PubListViewController: UITableViewController {
         self.performSegue(withIdentifier: "unwindToLogin", sender: self)
     }
     
-    func activityIndicator() {
-        indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+    func showSpinner() -> UIActivityIndicatorView {
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
+        var indicator = UIActivityIndicatorView()
+        indicator = UIActivityIndicatorView(frame: self.view.frame)
+        indicator.center.x = self.view.center.x   + tableView.contentOffset.x
+        indicator.center.y = self.view.center.y + tableView.contentOffset.y
+        indicator.backgroundColor = UIColor(white: 0.0, alpha: 0.5)
         indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
         indicator.color = UIColor.red
-        indicator.center = self.view.center
+        indicator.hidesWhenStopped = true
+        indicator.startAnimating()
+        
         self.view.addSubview(indicator)
+        debugPrint("show spinner....")
+        return indicator
+    }
+    
+    func hideSpinner(indicator: UIActivityIndicatorView) {
+        indicator.stopAnimating()
+        indicator.isHidden = true
+        debugPrint("hide spinner...")
+        UIApplication.shared.endIgnoringInteractionEvents()
     }
     
     
-    func showActivityIndicator(uiView: UIView) {
-        let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
-        actInd.frame = CGRect(x: 0, y: 0, width: 40.0, height: 40.0)
-        actInd.center = uiView.center
-        actInd.hidesWhenStopped = true
-        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
-        uiView.addSubview(actInd)
-        actInd.stopAnimating()
-    }
-    
+        
     
     // call web API to get publications list
     func callGetPubsAPI(){
@@ -216,15 +222,22 @@ class PubListViewController: UITableViewController {
             let alert: UIAlertController = UIAlertController(title: "Download Publication", message: "Begin to download " + cellValue.substring(to: endInt!) + "?", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (UIAlertAction) -> Void in
-                self.indicator.startAnimating()
-                self.indicator.backgroundColor = UIColor.white
+                let spinner = self.showSpinner()
+                
                 // move to a background thread to download publication.
                 DispatchQueue.global(qos: .userInitiated).async {
-                    self.downloadPublication(pub: cellValue.substring(to: endInt!))
-                    DispatchQueue.main.async {
-                        self.indicator.stopAnimating()
-                        self.indicator.hidesWhenStopped = true
+                    self.downloadPublication(pub: cellValue.substring(to: endInt!)){ (response) in
+                        if response == true {
+                            DispatchQueue.main.async {
+                                self.hideSpinner(indicator: spinner)
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                self.hideSpinner(indicator: spinner)
+                            }
+                        }
                     }
+                    
                 }
             }));
             alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
@@ -238,7 +251,7 @@ class PubListViewController: UITableViewController {
     }
     
     
-    func downloadPublication(pub: String) {
+    func downloadPublication(pub: String, completionHandler: @escaping (Bool) -> ()) {
         print("begin to download " + pub)
         
         
@@ -256,12 +269,14 @@ class PubListViewController: UITableViewController {
             
             if error != nil {
                 print(error!.localizedDescription)
+                completionHandler(false)
                 return
             }
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode == 404 {
                 print("404")
                 //self.loginSuccess(userId: nil, error: "Bad acroynm.")
+                completionHandler(false)
                 return
             }
             
@@ -269,12 +284,14 @@ class PubListViewController: UITableViewController {
                 print("statusCode should be 200, but is \(httpStatus.statusCode)")
                 print("error is \(error), \(response.debugDescription)")
                 //self.loginSuccess(userId: nil, error: error.debugDescription)
+                completionHandler(false)
                 return
             }
             // parse the result as JSON
             // debugPrint("download successfully. begin to save the data...")
             self.save_publication(jsonData: data!)
             self.do_table_refresh()
+            completionHandler(true)
            
         }
         task.resume()
