@@ -197,6 +197,7 @@ class RulebookTableViewController: UITableViewController {
             header?.textLabel?.font = title.font
             header?.textLabel?.textColor = title.textColor
             header?.textLabel?.text = title.text
+            header?.backgroundColor = UIColor.black
             
             return header
         }

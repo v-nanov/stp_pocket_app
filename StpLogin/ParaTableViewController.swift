@@ -166,6 +166,7 @@ class ParaTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         rowTapped = indexPath.row
+        debugPrint("tapped: \(rowTapped!)")
         do_table_refresh()
     }
     
@@ -179,30 +180,41 @@ class ParaTableViewController: UITableViewController {
         
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             // #warning Incomplete implementation, return the number of rows
-            return paraNumArray.count
+        print("table will display \(paraNumArray.count) rows")
+        return paraNumArray.count + 1
             
     }
         
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)  as! ParaTableViewCell
         cell.layoutMargins = UIEdgeInsets.zero
+        print("display row \(indexPath.row)")
         if indexPath.row == 0 {
             cell.titleLabel.textColor = UIColor.black
-            // cell.titleLabel.backgroundColor = UIColor.lightGray
             cell.titleLabel.font = UIFont(name: "Futura", size: 18)
             
             if let row = rowTapped { // The first row will show the contents of the tapped row
-                cell.titleLabel.text = paraNumArray[row - 1] + " " + questionArray[row - 1] + "\n\n" + guideNoteArray[row]
-                
+                print("tapped header")
+                if row != 0 {
+                    cell.titleLabel.text = paraNumArray[row - 1] + " " + questionArray[row - 1]
+                    cell.titleLabel.text = cell.titleLabel.text! + "\n\n" + guideNoteArray[row - 1]
+                }
             } else { // display the first row when no row is tapped.
-                cell.titleLabel.text = paraNumArray[0] + " " + questionArray[0] + "\n\n" + guideNoteArray[0]
+                print("no tap, normal header.")
+                print("question: \(questionArray.count)")
+                print("guideNote: \(guideNoteArray.count)")
+                print("paraNum: \(paraNumArray.count)")
+                if (paraNumArray.count > 0) {
+                    cell.titleLabel.text = paraNumArray[0] + " " + questionArray[0] + "\n\n" + guideNoteArray[0]
+                    print("first row displayed. ")
+                } else {
+                    cell.titleLabel.text = "No data."
+                }
             }
         } else {
+            print("come to display the row.")
             cell.titleLabel.textColor = UIColor(white: 114/225, alpha: 1)
-            
-            
             cell.titleLabel.text = paraNumArray[indexPath.row - 1] + "：" + citationArray[indexPath.row - 1]
-            
         }
         
         return cell
@@ -220,6 +232,7 @@ class ParaTableViewController: UITableViewController {
         header?.textLabel?.font = title.font
         header?.textLabel?.textColor = title.textColor
         header?.textLabel?.text = title.text
+        header?.backgroundColor = UIColor.black
         
         return header
     }

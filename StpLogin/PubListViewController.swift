@@ -15,8 +15,6 @@ class PubListViewController: UITableViewController {
     var acronym: String?
     var offline = false
     var publicationTitle: String?
-
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +66,7 @@ class PubListViewController: UITableViewController {
         indicator.center.y = self.view.center.y + tableView.contentOffset.y
         indicator.backgroundColor = UIColor(white: 0.0, alpha: 0.5)
         indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
-        indicator.color = UIColor.red
+        indicator.color = UIColor(hex: "#ed9022")
         indicator.hidesWhenStopped = true
         indicator.startAnimating()
         
@@ -84,8 +82,6 @@ class PubListViewController: UITableViewController {
         UIApplication.shared.endIgnoringInteractionEvents()
     }
     
-    
-        
     
     // call web API to get publications list
     func callGetPubsAPI(){
@@ -252,8 +248,6 @@ class PubListViewController: UITableViewController {
     
     
     func downloadPublication(pub: String, completionHandler: @escaping (Bool) -> ()) {
-        print("begin to download " + pub)
-        
         
         // create request
         let apiURL: String = Constants.URL_END_POINT + "Publications?acronym=\(pub)"
@@ -422,6 +416,7 @@ class PubListViewController: UITableViewController {
         header?.textLabel?.font = title.font
         header?.textLabel?.textColor = title.textColor
         header?.textLabel?.text = title.text
+        header?.backgroundColor = UIColor.black
         
         return header
     }
