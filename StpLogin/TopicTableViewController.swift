@@ -8,7 +8,8 @@
 
 import UIKit
 
-class TopicTableViewController: UITableViewController {
+class TopicTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
+   
     var acronym: String? // passed from publication controller
     var publicationTitle: String? // passed from publication controller
     var offline: Bool = false // passed from publication controller
@@ -16,6 +17,8 @@ class TopicTableViewController: UITableViewController {
     var TableData: Array<String> = Array<String>()
     var topicKeyArray: Array<Int> = Array<Int>()
     var topic: String?
+    
+    let sdPickerViewController = StatePickerViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,29 +31,47 @@ class TopicTableViewController: UITableViewController {
         navigationItem.title = "TOPICS"
         self.navigationController?.navigationBar.topItem!.title = "Back"
         
+        sdPickerViewController.modalPresentationStyle = .popover
+        
         guard acronym != nil else {
             debugPrint("empty acronym")
             return
         }
         
         if offline == false {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
             callGetTopicsAPI()
+            if acronym == "EAF" || acronym == "OF" {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SD", style: .plain, target: self, action: #selector(showSDPicker))
+            }
         } else {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Exit", style: .plain, target: self, action: #selector(signOut))
             browseLocal()
         }
     }
     
     
-    func signOut() {
-        self.performSegue(withIdentifier: "unwindToLogin", sender: self)
+    func showSDPicker() {
+        let sdPickerPresentationController = sdPickerViewController.presentationController as! UIPopoverPresentationController
+        sdPickerPresentationController.barButtonItem = navigationItem.rightBarButtonItem
+        sdPickerPresentationController.backgroundColor = UIColor.white
+        sdPickerPresentationController.delegate = self
+        
+        present(sdPickerViewController, animated: true, completion: nil)
+      
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = "Topic"
+    }
+    
+    // The number of columns of data
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
     }
     
     
@@ -74,7 +95,7 @@ class TopicTableViewController: UITableViewController {
     func callGetTopicsAPI(){
         
         // create request
-        let apiURL: String = Constants.URL_END_POINT + "Topics?acronym=\(acronym!)"
+        let apiURL: String = Constants.URL_END_POINT + "Topics?acronym=\(acronym!)&userid=\(StpVariables.userID!)"
         guard let api = URL(string: apiURL) else {
             print("Error: cannot create URL")
             return
@@ -107,19 +128,32 @@ class TopicTableViewController: UITableViewController {
         task.resume()
     }
     
+        
     func extract_topics(jsonData: Data){
         
-        guard let topics = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [AnyObject] else{
+        guard let pub = try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any] else{
             return
         }
         
-        for item in topics! {
-            let topicKey = item["topicKey"] as? Int
-            let topic = item["topic"] as? String
-            //debugPrint(topicKey)
-            //debugPrint(topic)
-            TableData.append(topic!)
-            topicKeyArray.append(topicKey!)
+        // Save publication.
+        StpVariables.states = ["None"]
+        StpVariables.stateSelected = 0
+        if let pbs = pub?["pb"] as? [String: Any] {
+            if let sts = pbs["state"] as? [String] {
+                StpVariables.states.append(contentsOf: sts)
+            }
+        }
+        
+        // Save topic.
+        if let tps = pub?["tp"] as? [[String: Any]]{
+            for item in tps {
+                let topicKey = item["topicKey"] as? Int
+                let topic = item["topic"] as? String
+                
+                //debugPrint(topic)
+                TableData.append(topic!)
+                topicKeyArray.append(topicKey!)
+            }
         }
         do_table_refresh()
     }

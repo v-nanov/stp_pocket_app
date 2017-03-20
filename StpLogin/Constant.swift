@@ -13,3 +13,9 @@ struct Constants {
     static let SESSION = 7.0  // how many days can the users browse the offline data after their last login.
     static let TITLE = "POCKET REFERENCE"
 }
+
+struct StpVariables {
+    static var userID: Int?  // login id
+    static var states = [String]() // The States list user subscribed
+    static var stateSelected: Int = 0 // state that user chosed for displaying state difference.
+}

@@ -9,7 +9,7 @@
 
 import UIKit
 
-class SectionTableViewController: UITableViewController {
+class SectionTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
     var rbKey: Int? // passed from Rulebook controller
     var sectionKey: Int? // passed to Paralist controller
     var offline: Bool = false // passed from Rulebook controller
@@ -17,7 +17,9 @@ class SectionTableViewController: UITableViewController {
     var sectionKeyArray: Array<Int> = Array<Int>()
     var rbName: String?
     
+    let sdPickerViewController = StatePickerViewController()
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,15 +31,18 @@ class SectionTableViewController: UITableViewController {
         navigationItem.title = "SECTION"
         self.navigationController?.navigationBar.topItem!.title = "Back"
         
+        sdPickerViewController.modalPresentationStyle = .popover
+        
         guard rbKey != nil else {
             debugPrint("empty rbKey")
             return
         }
         if offline == false {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
             callWebAPI()
+            if StpVariables.states.count > 1 {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SD", style: .plain, target: self, action: #selector(showSDPicker))
+            }
         } else {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Exit", style: .plain, target: self, action: #selector(signOut))
             browseLocal()
         }
     }
@@ -49,9 +54,22 @@ class SectionTableViewController: UITableViewController {
     }
     
     
-    func signOut() {
-        self.performSegue(withIdentifier: "unwindToLogin", sender: self)
+    func showSDPicker() {
+        let sdPickerPresentationController = sdPickerViewController.presentationController as! UIPopoverPresentationController
+        
+        sdPickerPresentationController.barButtonItem = navigationItem.rightBarButtonItem
+        sdPickerPresentationController.backgroundColor = UIColor.white
+        sdPickerPresentationController.delegate = self
+        
+        present(sdPickerViewController, animated: true, completion: nil)
+        
     }
+    
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+
     
     
     // browse publications in local database

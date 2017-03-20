@@ -15,7 +15,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var emailText: UITextField!
     
     @IBOutlet weak var buttonBrowse: UIButton!
-    var userID: Int?
     var offline: Bool = false
     
     override func viewDidLoad() {
@@ -148,7 +147,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
             }
             return
         }
-        userID = userId
+        StpVariables.userID = userId
         
         // Save login information to keychain for next login.
         saveLogin(username: emailText.text!, password: passwordText.text!)
@@ -166,7 +165,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueDisplayPubList" {
             if let destinationVC = segue.destination as? PubListViewController {
-                destinationVC.userId = userID
                 destinationVC.offline = offline
             }
         }
@@ -237,7 +235,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
             
             for object in todo!{
                 if let unwrapped = object["userid"] {
-                    print("unwrapped = \(unwrapped)")
+                    //print("unwrapped = \(unwrapped)")
                     self.loginSuccess(userId: unwrapped as? Int , error: "")
                 }
             }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?properties {
+}?>
+
+<LMTableView style="plainTableView" estimatedSectionHeaderHeight="0" estimatedSectionFooterHeight="0">
+    <?sectionSelectionMode singleCheckmark?>
+    
+    <?sectionBreak?>
+    <?sectionSelectionMode singleCheckmark?>
+    <?sectionName dynamic?>
+    
+</LMTableView>

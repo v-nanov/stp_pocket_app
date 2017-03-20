@@ -10,7 +10,6 @@ import UIKit
 
 class PubListViewController: UITableViewController {
     
-    var userId: Int? // userId will be passed from login controller.
     var TableData: Array<String> = Array<String>()
     var acronym: String?
     var offline = false
@@ -91,7 +90,7 @@ class PubListViewController: UITableViewController {
     func callGetPubsAPI(){
         
         // create request
-        let apiURL: String = Constants.URL_END_POINT + "Publications?userId=\(userId!)"
+        let apiURL: String = Constants.URL_END_POINT + "Publications?userId=\(StpVariables.userID!)"
         guard let api = URL(string: apiURL) else {
             print("Error: cannot create URL")
             return
@@ -252,8 +251,6 @@ class PubListViewController: UITableViewController {
     
     
     func downloadPublication(pub: String, completionHandler: @escaping (Bool) -> ()) {
-        print("begin to download " + pub)
-        
         
         // create request
         let apiURL: String = Constants.URL_END_POINT + "Publications?acronym=\(pub)"
