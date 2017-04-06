@@ -15,9 +15,9 @@
 		E6AE63111E36BEBA008EBEF8 /* textFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AE63101E36BEBA008EBEF8 /* textFieldExtension.swift */; };
 		E6C1D8261DE79B9400B7AEDC /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C1D8251DE79B9400B7AEDC /* Constant.swift */; };
 		E6C3FFBE1E0C48F80067A04C /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C3FFBD1E0C48F80067A04C /* Model.swift */; };
-		E6CF603A1E7C60DA0018A88E /* StatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CF60391E7C60DA0018A88E /* StatePickerViewController.swift */; };
 		E6CF603C1E804D7B0018A88E /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CF603B1E804D7B0018A88E /* SQLite.framework */; };
 		E6CF603D1E804D7B0018A88E /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6CF603B1E804D7B0018A88E /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E6CF603F1E807A720018A88E /* StatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CF603E1E807A720018A88E /* StatePickerViewController.swift */; };
 		E6ED6EE01DCA8AB000678D73 /* PubListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ED6EDF1DCA8AB000678D73 /* PubListViewController.swift */; };
 		E6EEA1281E79DD450070CE5D /* MarkupKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6EEA1241E79DBEF0070CE5D /* MarkupKit.framework */; };
 		E6EEA1291E79DD450070CE5D /* MarkupKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6EEA1241E79DBEF0070CE5D /* MarkupKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -67,8 +67,8 @@
 		E6C1D8251DE79B9400B7AEDC /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		E6C3FFB91E0B3EA10067A04C /* SQLite.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SQLite.framework.dSYM; path = Carthage/Build/iOS/SQLite.framework.dSYM; sourceTree = "<group>"; };
 		E6C3FFBD1E0C48F80067A04C /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		E6CF60391E7C60DA0018A88E /* StatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatePickerViewController.swift; path = ../../Dropdown/Dropdown/StatePickerViewController.swift; sourceTree = "<group>"; };
 		E6CF603B1E804D7B0018A88E /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = Carthage/Build/iOS/SQLite.framework; sourceTree = "<group>"; };
+		E6CF603E1E807A720018A88E /* StatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatePickerViewController.swift; sourceTree = "<group>"; };
 		E6ED6EDF1DCA8AB000678D73 /* PubListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubListViewController.swift; sourceTree = "<group>"; };
 		E6EEA1241E79DBEF0070CE5D /* MarkupKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MarkupKit.framework; path = ../../Documents/MarkupKit.framework; sourceTree = "<group>"; };
 		E6EEA12A1E79E9630070CE5D /* States.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = States.xml; sourceTree = "<group>"; };
@@ -132,13 +132,13 @@
 			isa = PBXGroup;
 			children = (
 				E6FE75CA1E0B3B240026F2AF /* StpDb.swift */,
+				E6CF603E1E807A720018A88E /* StatePickerViewController.swift */,
 				E6C3FFBD1E0C48F80067A04C /* Model.swift */,
 				E6F14A321DC8FBA0005C869D /* AppDelegate.swift */,
 				E6C1D8251DE79B9400B7AEDC /* Constant.swift */,
 				E6AE63101E36BEBA008EBEF8 /* textFieldExtension.swift */,
 				E6517FA01E37A5DB005A4568 /* uiColorExtension.swift */,
 				E6F14A361DC8FBA0005C869D /* Main.storyboard */,
-				E6CF60391E7C60DA0018A88E /* StatePickerViewController.swift */,
 				E61B337C1E392ACC00BFDFA8 /* ViewController.swift */,
 				E6517FA41E39176B005A4568 /* NavigationContoller.swift */,
 				E6FE75C41DFF501C0026F2AF /* KeychainConfiguration.swift */,
@@ -263,6 +263,7 @@
 				E6FE75C11DF73FE10026F2AF /* ParaTableViewController.swift in Sources */,
 				E61B337D1E392ACC00BFDFA8 /* ViewController.swift in Sources */,
 				E6FE75B51DF1DC420026F2AF /* RulebookCell.swift in Sources */,
+				E6CF603F1E807A720018A88E /* StatePickerViewController.swift in Sources */,
 				E6FE75B71DF610F80026F2AF /* SectionTableViewController.swift in Sources */,
 				E6F284341DEE0E33003B5DA3 /* TopicTableViewController.swift in Sources */,
 				E6F7729D1DECE8B6008CC7DE /* PublicationTableViewCell.swift in Sources */,
@@ -272,7 +273,6 @@
 				E6C1D8261DE79B9400B7AEDC /* Constant.swift in Sources */,
 				E664AD7D1DEF488A0043A285 /* TopicTableViewCell.swift in Sources */,
 				E6FE75C51DFF501D0026F2AF /* KeychainConfiguration.swift in Sources */,
-				E6CF603A1E7C60DA0018A88E /* StatePickerViewController.swift in Sources */,
 				E6FE75B91DF61DD40026F2AF /* SectionCell.swift in Sources */,
 				E6F14A331DC8FBA0005C869D /* AppDelegate.swift in Sources */,
 				E6FE75C31DF87BF70026F2AF /* ParaHeaderCell.swift in Sources */,

@@ -178,7 +178,6 @@ class RulebookTableViewController: UITableViewController, UIPopoverPresentationC
         let row = indexPath.row
         rbKey = rbKeyArray[row]
         rbName = TableData[row]
-        print("the row is tabbed:\(rbKey)")
         
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: "segueSection", sender: self)

@@ -216,7 +216,7 @@ class PubListViewController: UITableViewController {
             let range1 = cellValue.range(of: ":")
             let endInt = range1?.lowerBound
             
-            debugPrint("the row is tabbed :" + cellValue.substring(to: endInt!))
+            //debugPrint("the row is tabbed :" + cellValue.substring(to: endInt!))
             
             let alert: UIAlertController = UIAlertController(title: "Download Publication", message: "Begin to download " + cellValue.substring(to: endInt!) + "?", preferredStyle: .alert)
             

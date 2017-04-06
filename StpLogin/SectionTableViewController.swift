@@ -31,6 +31,7 @@ class SectionTableViewController: UITableViewController, UIPopoverPresentationCo
         navigationItem.title = "SECTION"
         self.navigationController?.navigationBar.topItem!.title = "Back"
         
+        
         sdPickerViewController.modalPresentationStyle = .popover
         
         guard rbKey != nil else {
@@ -157,7 +158,6 @@ class SectionTableViewController: UITableViewController, UIPopoverPresentationCo
         
         let row = indexPath.row
         sectionKey = sectionKeyArray[row]
-        print("the row is tabbed:\(sectionKey)")
         
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: "segueParalist", sender: self)

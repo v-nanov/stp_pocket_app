@@ -8,8 +8,9 @@
 //  Display paragraphes under a section
 
 import UIKit
+import MarkupKit
 
-class ParaTableViewController: UITableViewController {
+class ParaTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
     
     var sectionKey: Int? // sectionKey will be passed from section controller.
     var offline: Bool = false // offline will be passed from section controller.
@@ -22,7 +23,12 @@ class ParaTableViewController: UITableViewController {
     var citationArray: Array<String> = Array<String>()
     
     var rowTapped: Int?
-        
+    
+    let sdPickerViewController = StatePickerViewController()
+    let dynamicComponentName = "dynamic"
+    
+    var state = 0 // record the state before user change it.
+    
     override func viewDidLoad() {
         super.viewDidLoad()
             
@@ -37,21 +43,41 @@ class ParaTableViewController: UITableViewController {
         navigationItem.title = "PARAGRAPH"
         self.navigationController?.navigationBar.topItem!.title = "Back"
         
+        sdPickerViewController.modalPresentationStyle = .popover
+        sdPickerViewController.tableView.delegate = self
+        
         guard sectionKey != nil else {
-            debugPrint("empty sectionKey")
             return
         }
-            
+        
         if offline == false {
-            // navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
             callWebAPI()
+            if StpVariables.states.count > 1 {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SD", style: .plain, target: self, action: #selector(showSDPicker))
+            }
         } else {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Exit", style: .plain, target: self, action: #selector(signOut))
             browseLocal()
         }
     }
+
+    
+    func showSDPicker() {
+        let sdPickerPresentationController = sdPickerViewController.presentationController as! UIPopoverPresentationController
+        
+        sdPickerPresentationController.barButtonItem = navigationItem.rightBarButtonItem
+        sdPickerPresentationController.backgroundColor = UIColor.white
+        sdPickerPresentationController.delegate = self
+        
+        present(sdPickerViewController, animated: true, completion: nil)
+    }
     
     
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+
     func signOut() {
         self.performSegue(withIdentifier: "unwindToLogin", sender: self)
     }
@@ -85,17 +111,26 @@ class ParaTableViewController: UITableViewController {
     
     // call web API to get publications list
     func callWebAPI(){
-            
-            // create request
-            let apiURL: String = Constants.URL_END_POINT + "Para?sectionKey=\(sectionKey!)"
-            guard let api = URL(string: apiURL) else {
+        let callParameters: String
+        
+        if (StpVariables.stateSelected == 0) { // no state is selected, do not need to get state difference.
+            callParameters = "Para?sectionKey=\(sectionKey!)"
+        } else {
+            let st = StpVariables.states[StpVariables.stateSelected]
+            let st1 = st.replacingOccurrences(of: " ", with: "%20")
+            callParameters = "ParaController/\(sectionKey!)/\(st1)"
+        }
+        
+        let apiURL: String = Constants.URL_END_POINT + callParameters
+        guard let api = URL(string: apiURL) else {
                 print("Error: cannot create URL")
                 return
-            }
-            var request = URLRequest(url: api)
-            request.httpMethod = "GET"
+        }
+        
+        var request = URLRequest(url: api)
+        request.httpMethod = "GET"
             
-            let task = URLSession.shared.dataTask(with: request){
+        let task = URLSession.shared.dataTask(with: request){
                 data, response, error in
                 
                 if error != nil {
@@ -116,18 +151,27 @@ class ParaTableViewController: UITableViewController {
                 }
                 // parse the result as JSON
                 self.extract_json(jsonData: data!)
-            }
-            task.resume()
+        }
+        task.resume()
     }
+    
         
     func extract_json(jsonData: Data){
+        let sdType = ["Auditable_Partial": "Audit", "Auditable_Full": "Audit", "Applicability": "Applicability", "ExternalRef": "External", "GeneralInfo": "Info"]
             
-            guard let rb = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [AnyObject] else{
+        guard let rb = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [AnyObject] else{
                 return
-            }
-            
-            for item in rb! {
-                let question = item["question"] as? String
+        }
+        
+        paraNumArray.removeAll()
+        paraKeyArray.removeAll()
+        questionArray.removeAll()
+        guideNoteArray.removeAll()
+        citationArray.removeAll()
+        rowTapped = nil // no row is tapped again.
+        
+        for item in rb! {
+                var question = item["question"] as? String
                 let guideNote = item["guideNote"] as? String
                 let paraKey = item["paraKey"] as? Int
                 let paraNum = item["paraNum"] as? String
@@ -136,17 +180,24 @@ class ParaTableViewController: UITableViewController {
                 paraNumArray.append(paraNum!)
                 paraKeyArray.append(paraKey!)
                 
+                for (code,value) in sdType { // simplify the type of state difference for display
+                    if (question == code){
+                        question = value
+                    }
+                }
+                
                 questionArray.append(question!)
                 guideNoteArray.append(guideNote!)
                 
                 if let ci = citation {
                     citationArray.append(ci)
-                }else{
+                } else {
                     citationArray.append("")
                 }
-            }
-            do_table_refresh()
+        }
+        do_table_refresh()
     }
+    
         
     func do_table_refresh()  {
         DispatchQueue.main.async {
@@ -162,66 +213,108 @@ class ParaTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        rowTapped = indexPath.row
-        do_table_refresh()
+        if(tableView.name(forSection: indexPath.section) != dynamicComponentName) { // paragraph row is tapped.
+            tableView.deselectRow(at: indexPath, animated: true)
+            if indexPath.row != 0 {
+                rowTapped = indexPath.row
+                do_table_refresh()
+            }
+        } else { // state differents list is tapped.
+            state = StpVariables.stateSelected // record the state before user's choosing.
+            StpVariables.stateSelected = indexPath.row
+            
+            for row in 0..<StpVariables.states.count { // set a check mark at the end of selected state in the drop down list.
+                if let cell = tableView.cellForRow(at: IndexPath(row: row, section: 1)) {
+                    if (row == indexPath.row) {
+                        cell.accessoryType = .checkmark
+                        StpVariables.stateSelected = row
+                    } else {
+                        cell.accessoryType = .none
+                    }
+                }
+            }
+            dismiss(animated: true, completion: nil)
+            if (state != StpVariables.stateSelected) { // state changed, call web API to get the new data.
+                callWebAPI()
+            }
+        }
     }
+ 
     
-    
-        // MARK: - Table view data source
-    
+    // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-            // #warning Incomplete implementation, return the number of sections
-            return 1
+        return 1
     }
+    
         
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            // #warning Incomplete implementation, return the number of rows
-            return paraNumArray.count + 1 // Why + 1? to display the detail in the first row.
-            
+        return paraNumArray.count + 1 // Why + 1? to display the detail in the first row.
     }
+    
         
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let sdType = ["Audit", "Applicability", "External", "Info"]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)  as! ParaTableViewCell
         cell.layoutMargins = UIEdgeInsets.zero
         if indexPath.row == 0 {
-            cell.titleLabel.textColor = UIColor.black
-            cell.titleLabel.font = UIFont(name: "Futura", size: 18)
-            
-            if let row = rowTapped { // The first row will show the contents of the tapped row
-                if row != 0 {
-                    cell.titleLabel.text = paraNumArray[row - 1] + " " + questionArray[row - 1]
-                    cell.titleLabel.text = cell.titleLabel.text! + "\n\n" + guideNoteArray[row - 1]
+                cell.titleLabel.textColor = UIColor(white: 114/225, alpha: 1)
+                cell.backgroundColor = UIColor.white
+                if let row = rowTapped { // The first row will show the contents of the tapped row
+                    if row != 0 {
+                        if (sdType.contains(questionArray[row - 1])) {
+                            cell.titleLabel.text = StpVariables.states[StpVariables.stateSelected] + "\n"
+                            cell.titleLabel.text = cell.titleLabel.text! + guideNoteArray[row - 1]
+                        } else {
+                            cell.titleLabel.text = paraNumArray[row - 1] + " " + questionArray[row - 1]
+                            cell.titleLabel.text = cell.titleLabel.text! + "\n\n" + guideNoteArray[row - 1]
+                        }
+                    }
+                } else { // display the first row when no row is tapped.
+                    if paraNumArray.count > 0 {
+                        if (sdType.contains(questionArray[0])) { // do not show StateDiff in the first row.
+                            cell.titleLabel.text = paraNumArray[1] + " " + questionArray[1] + "\n\n" + guideNoteArray[1]
+                        } else {
+                            cell.titleLabel.text = paraNumArray[0] + " " + questionArray[0] + "\n\n" + guideNoteArray[0]
+                        }
+                    } else {
+                        cell.titleLabel.text = "No data."
+                    }
                 }
-            } else { // display the first row when no row is tapped.
-                if paraNumArray.count > 0 {
-                    cell.titleLabel.text = paraNumArray[0] + " " + questionArray[0] + "\n\n" + guideNoteArray[0]
-                } else {
-                    cell.titleLabel.text = "No data."
-                }
-            }
         } else {
-            cell.titleLabel.textColor = UIColor(white: 114/225, alpha: 1)
-            cell.titleLabel.text = paraNumArray[indexPath.row - 1] + "：" + citationArray[indexPath.row - 1]
+                if (sdType.contains(questionArray[indexPath.row - 1])) {
+                    cell.titleLabel.textColor = UIColor(white: 50/225, alpha: 1)
+                    cell.titleLabel.text = StpVariables.states[StpVariables.stateSelected] + "-"
+                    cell.titleLabel.text = cell.titleLabel.text! + paraNumArray[indexPath.row - 1]
+                    cell.titleLabel.text = cell.titleLabel.text! + "：" + citationArray[indexPath.row - 1]
+                    cell.titleLabel.text = cell.titleLabel.text! + " (" + questionArray[indexPath.row - 1] + ")"
+                } else {
+                    cell.titleLabel.textColor = UIColor(white: 114/225, alpha: 1)
+                    cell.titleLabel.text = paraNumArray[indexPath.row - 1] + "：" + citationArray[indexPath.row - 1]
+                }
+                if (indexPath.row == rowTapped) {
+                    print("row \(indexPath.row) will turn to green.")
+                    cell.backgroundColor = UIColor(hex: StpColor.Purple)
+                }else {
+                    cell.backgroundColor = UIColor.white
+                }
         }
-        
         return cell
     }
-        
+    
+    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            
         let header = tableView.dequeueReusableCell(withIdentifier: "header")
         
-        let title = UILabel()
-        title.font = UIFont(name: "Myriad Pro", size: 18)!
-        title.text = "Choose a paragraph to show detail"
-        title.textColor = UIColor.white
+            let title = UILabel()
+            title.font = UIFont(name: "Myriad Pro", size: 18)!
+            title.text = "Choose a paragraph to show detail"
+            title.textColor = UIColor.white
         
-        header?.textLabel?.font = title.font
-        header?.textLabel?.textColor = title.textColor
-        header?.textLabel?.text = title.text
-        header?.backgroundColor = UIColor.black
-        
-        return header
+            header?.textLabel?.font = title.font
+            header?.textLabel?.textColor = title.textColor
+            header?.textLabel?.text = title.text
+            header?.backgroundColor = UIColor.black
+            
+            return header
     }
 }

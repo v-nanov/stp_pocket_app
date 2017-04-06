@@ -19,3 +19,8 @@ struct StpVariables {
     static var states = [String]() // The States list user subscribed
     static var stateSelected: Int = 0 // state that user chosed for displaying state difference.
 }
+
+struct StpColor {
+    static var Orange = "ED9022"
+    static var Purple = "343896"
+}

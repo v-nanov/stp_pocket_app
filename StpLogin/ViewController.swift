@@ -51,7 +51,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
             buttonBrowse.backgroundColor = UIColor.lightGray
         } else {
             buttonBrowse.isEnabled = true
-            buttonBrowse.backgroundColor = UIColor(hex: "ed9022")
+            buttonBrowse.backgroundColor = UIColor(hex: StpColor.Orange)
         }
     }
     
@@ -59,8 +59,8 @@ class ViewController: UIViewController, UITextFieldDelegate{
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        emailText.setBottomBorder(color: "ed9022")
-        passwordText.setBottomBorder(color: "ed9022")
+        emailText.setBottomBorder(color: StpColor.Orange)
+        passwordText.setBottomBorder(color: StpColor.Orange)
     }
     
     

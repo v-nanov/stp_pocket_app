@@ -181,7 +181,6 @@ class TopicTableViewController: UITableViewController, UIPopoverPresentationCont
         let row = indexPath.row
         topicKey = topicKeyArray[row]
         topic = TableData[row]
-        print("the row is tabbed:\(topicKey)")
         
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: "segueRulebook", sender: self)
