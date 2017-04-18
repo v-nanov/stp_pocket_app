@@ -24,6 +24,11 @@
 	<string>ed9022</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Myriad Pro Regular.ttf</string>
@@ -36,6 +41,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIRequiresPersistentWiFi</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

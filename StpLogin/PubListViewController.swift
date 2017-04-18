@@ -9,14 +9,12 @@
 import UIKit
 
 class PubListViewController: UITableViewController {
-    
     var TableData: Array<String> = Array<String>()
     var acronym: String?
     var offline = false
     var publicationTitle: String?
+    
 
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -25,7 +23,6 @@ class PubListViewController: UITableViewController {
         navigationItem.title = Constants.TITLE
         navigationItem.setHidesBackButton(true, animated: false)
         
-       
         if offline ==  false {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
             callGetPubsAPI()
@@ -54,9 +51,11 @@ class PubListViewController: UITableViewController {
         }
     }
     
+    
     func signOut() {
         self.performSegue(withIdentifier: "unwindToLogin", sender: self)
     }
+    
     
     func showSpinner() -> UIActivityIndicatorView {
         UIApplication.shared.beginIgnoringInteractionEvents()
@@ -72,24 +71,20 @@ class PubListViewController: UITableViewController {
         indicator.startAnimating()
         
         self.view.addSubview(indicator)
-        debugPrint("show spinner....")
         return indicator
     }
+    
     
     func hideSpinner(indicator: UIActivityIndicatorView) {
         indicator.stopAnimating()
         indicator.isHidden = true
-        debugPrint("hide spinner...")
+        
         UIApplication.shared.endIgnoringInteractionEvents()
     }
     
     
-        
-    
     // call web API to get publications list
     func callGetPubsAPI(){
-        
-        // create request
         let apiURL: String = Constants.URL_END_POINT + "Publications?userId=\(StpVariables.userID!)"
         guard let api = URL(string: apiURL) else {
             print("Error: cannot create URL")
@@ -136,7 +131,7 @@ class PubListViewController: UITableViewController {
     
     func extract_publications(jsonData: Data){
         
-        guard let pubs = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [AnyObject] else{
+        guard let pubs = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [AnyObject] else {
             return
         }
         
@@ -148,6 +143,7 @@ class PubListViewController: UITableViewController {
         }
         do_table_refresh()
     }
+    
     
     func do_table_refresh()  {
         DispatchQueue.main.async {
@@ -169,28 +165,26 @@ class PubListViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
+    
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        // debugPrint("passed userId: \(self.userId)");
-
         return TableData.count
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PublicationTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let pubs = localPubList()
-        cell.titleLabel.text = TableData[indexPath.row]
-        if pubs.contains(cell.titleLabel.text!){
-            cell.titleLabel.textColor = UIColor(white: 1/225, alpha: 1)
+        cell.textLabel?.text = TableData[indexPath.row]
+        cell.textLabel?.numberOfLines = 0
+        if pubs.contains((cell.textLabel?.text)!){
+            cell.textLabel?.textColor = UIColor(white: 1/225, alpha: 1)
         } else {
-            cell.titleLabel.textColor = UIColor(white: 114/225, alpha: 1)
+            cell.textLabel?.textColor = UIColor(white: 114/225, alpha: 1)
         }
         let holdToDownload = UILongPressGestureRecognizer(target: self, action: #selector(longPressDownload(sender:)))
         holdToDownload.minimumPressDuration = 1.0
@@ -216,8 +210,6 @@ class PubListViewController: UITableViewController {
             let range1 = cellValue.range(of: ":")
             let endInt = range1?.lowerBound
             
-            //debugPrint("the row is tabbed :" + cellValue.substring(to: endInt!))
-            
             let alert: UIAlertController = UIAlertController(title: "Download Publication", message: "Begin to download " + cellValue.substring(to: endInt!) + "?", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (UIAlertAction) -> Void in
@@ -236,14 +228,12 @@ class PubListViewController: UITableViewController {
                             }
                         }
                     }
-                    
                 }
             }));
             alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
             if self.presentedViewController == nil {
                 self.present(alert, animated: true, completion: nil)
             }
-            
         } else if (sender.state == UIGestureRecognizerState.ended){
             print("long press end.")
         }
@@ -251,9 +241,7 @@ class PubListViewController: UITableViewController {
     
     
     func downloadPublication(pub: String, completionHandler: @escaping (Bool) -> ()) {
-        
-        // create request
-        let apiURL: String = Constants.URL_END_POINT + "Publications?acronym=\(pub)"
+        let apiURL: String = Constants.URL_END_POINT + "PublicationsController/\(pub)/\(StpVariables.userID!)"
         guard let api = URL(string: apiURL) else {
             print("Error: cannot create URL")
             return
@@ -285,39 +273,38 @@ class PubListViewController: UITableViewController {
                 return
             }
             // parse the result as JSON
-            // debugPrint("download successfully. begin to save the data...")
             self.save_publication(jsonData: data!)
             self.do_table_refresh()
             completionHandler(true)
-           
         }
         task.resume()
     }
     
     
     func save_publication(jsonData: Data) {
-        guard let pub = try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any] else{
+        guard let pub = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] else {
+            print("no data in publication.")
             return
         }
-        print("loop json to extract data.")
         let db = StpDB.instance
         
         // Save publication.
         if let pbs = pub?["pb"] as? [String: Any] {
-            
-            guard let pid = pbs["PublicationID"] as? Int else {
-                    return
-                }
-            guard let title = pbs["Title"] as? String else {
-                    return
-                }
-            guard let ac = pbs["Acronym"] as? String else {
+            guard let pid = pbs["publicationID"] as? Int else {
+                debugPrint("no publicaiton id, cannot save data.")
                 return
             }
-            debugPrint("acronym: \(ac), title: \(title), id: \(pid)")
+            guard let title = pbs["title"] as? String else {
+                return
+            }
+            guard let ac = pbs["acronym"] as? String else {
+                return
+            }
             acronym = ac
-            db.deletePublication(cacronym: ac) // delete the publication before downloading it.
-            
+            if db.deletePublication(cacronym: ac) == -1 { // delete the publication before downloading it.
+                print("cannot delete old publications")
+                return
+            }
             if db.addPublication(cacronym: ac, ctitle: title, cid: Int64(pid)) == -1 {
                 print("cannot save publication: \(ac)")
                 return
@@ -355,7 +342,6 @@ class PubListViewController: UITableViewController {
                     return
                 }
                 let summary = rb["summary"] as? String
-                //debugPrint("to save rulebook: \(rbName)")
                 if db.addRulebook(ctopicKey: topicKey, crbKey: rbKey, crbName: rbName, csummary: summary) == -1 {
                     print("cannot save rulebook: \(rbName)")
                     return
@@ -448,7 +434,6 @@ class PubListViewController: UITableViewController {
         
         acronym = cellValue.substring(to: endInt!)
         publicationTitle = cellValue.substring(from: cellValue.index(after: endInt!))
-        // print("the row is tabbed:" + acronym!)
         
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: "segueTopic", sender: self)

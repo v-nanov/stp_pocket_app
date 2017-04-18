@@ -183,9 +183,10 @@ class SectionTableViewController: UITableViewController, UIPopoverPresentationCo
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SectionCell
-        cell.titleLabel.text = TableData[indexPath.row]
-        cell.titleLabel.textColor = UIColor(white: 114/225, alpha: 1)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = TableData[indexPath.row]
+        cell.textLabel?.textColor = UIColor(white: 114/225, alpha: 1)
+        cell.textLabel?.numberOfLines = 0
         cell.layoutMargins = UIEdgeInsets.zero
         
         return cell

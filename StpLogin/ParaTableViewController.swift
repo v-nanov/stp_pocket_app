@@ -40,7 +40,7 @@ class ParaTableViewController: UITableViewController, UIPopoverPresentationContr
         tableView.sectionHeaderHeight = UITableViewAutomaticDimension
         tableView.estimatedSectionHeaderHeight = 25;
 
-        navigationItem.title = "PARAGRAPH"
+        navigationItem.title = "Paragraph"
         self.navigationController?.navigationBar.topItem!.title = "Back"
         
         sdPickerViewController.modalPresentationStyle = .popover
@@ -254,49 +254,49 @@ class ParaTableViewController: UITableViewController, UIPopoverPresentationContr
         
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let sdType = ["Audit", "Applicability", "External", "Info"]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)  as! ParaTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.numberOfLines = 0
         cell.layoutMargins = UIEdgeInsets.zero
         if indexPath.row == 0 {
-                cell.titleLabel.textColor = UIColor(white: 114/225, alpha: 1)
-                cell.backgroundColor = UIColor.white
-                if let row = rowTapped { // The first row will show the contents of the tapped row
-                    if row != 0 {
-                        if (sdType.contains(questionArray[row - 1])) {
-                            cell.titleLabel.text = StpVariables.states[StpVariables.stateSelected] + "\n"
-                            cell.titleLabel.text = cell.titleLabel.text! + guideNoteArray[row - 1]
-                        } else {
-                            cell.titleLabel.text = paraNumArray[row - 1] + " " + questionArray[row - 1]
-                            cell.titleLabel.text = cell.titleLabel.text! + "\n\n" + guideNoteArray[row - 1]
-                        }
-                    }
-                } else { // display the first row when no row is tapped.
-                    if paraNumArray.count > 0 {
-                        if (sdType.contains(questionArray[0])) { // do not show StateDiff in the first row.
-                            cell.titleLabel.text = paraNumArray[1] + " " + questionArray[1] + "\n\n" + guideNoteArray[1]
-                        } else {
-                            cell.titleLabel.text = paraNumArray[0] + " " + questionArray[0] + "\n\n" + guideNoteArray[0]
-                        }
+            cell.textLabel?.textColor = UIColor(white: 114/225, alpha: 1)
+            cell.backgroundColor = UIColor.white
+            if let row = rowTapped { // The first row will show the contents of the tapped row
+                if row != 0 {
+                    if (sdType.contains(questionArray[row - 1])) {
+                            cell.textLabel?.text = StpVariables.states[StpVariables.stateSelected] + "\n"
+                            cell.textLabel?.text = (cell.textLabel?.text!)! + guideNoteArray[row - 1]
                     } else {
-                        cell.titleLabel.text = "No data."
+                            cell.textLabel?.text = paraNumArray[row - 1] + " " + questionArray[row - 1]
+                            cell.textLabel?.text = (cell.textLabel?.text!)! + "\n\n" + guideNoteArray[row - 1]
                     }
                 }
-        } else {
-                if (sdType.contains(questionArray[indexPath.row - 1])) {
-                    cell.titleLabel.textColor = UIColor(white: 50/225, alpha: 1)
-                    cell.titleLabel.text = StpVariables.states[StpVariables.stateSelected] + "-"
-                    cell.titleLabel.text = cell.titleLabel.text! + paraNumArray[indexPath.row - 1]
-                    cell.titleLabel.text = cell.titleLabel.text! + "：" + citationArray[indexPath.row - 1]
-                    cell.titleLabel.text = cell.titleLabel.text! + " (" + questionArray[indexPath.row - 1] + ")"
+            } else { // display the first row when no row is tapped.
+                if paraNumArray.count > 0 {
+                        if (sdType.contains(questionArray[0])) { // do not show StateDiff in the first row.
+                            cell.textLabel?.text = paraNumArray[1] + " " + questionArray[1] + "\n\n" + guideNoteArray[1]
+                    } else {
+                            cell.textLabel?.text = paraNumArray[0] + " " + questionArray[0] + "\n\n" + guideNoteArray[0]
+                    }
                 } else {
-                    cell.titleLabel.textColor = UIColor(white: 114/225, alpha: 1)
-                    cell.titleLabel.text = paraNumArray[indexPath.row - 1] + "：" + citationArray[indexPath.row - 1]
+                    cell.textLabel?.text = "No data."
                 }
-                if (indexPath.row == rowTapped) {
-                    print("row \(indexPath.row) will turn to green.")
-                    cell.backgroundColor = UIColor(hex: StpColor.Purple)
-                }else {
-                    cell.backgroundColor = UIColor.white
-                }
+            }
+        } else {
+            if (sdType.contains(questionArray[indexPath.row - 1])) {
+                    cell.textLabel?.textColor = UIColor(white: 50/225, alpha: 1)
+                    cell.textLabel?.text = StpVariables.states[StpVariables.stateSelected] + "-"
+                    cell.textLabel?.text = (cell.textLabel?.text!)! + paraNumArray[indexPath.row - 1]
+                    cell.textLabel?.text = (cell.textLabel?.text!)! + "：" + citationArray[indexPath.row - 1]
+                    cell.textLabel?.text = (cell.textLabel?.text!)! + " (" + questionArray[indexPath.row - 1] + ")"
+            } else {
+                    cell.textLabel?.textColor = UIColor(white: 114/225, alpha: 1)
+                    cell.textLabel?.text = paraNumArray[indexPath.row - 1] + "：" + citationArray[indexPath.row - 1]
+            }
+            if (indexPath.row == rowTapped) {
+                cell.backgroundColor = UIColor(hex: StpColor.Orange)
+            }else {
+                cell.backgroundColor = UIColor.white
+            }
         }
         return cell
     }

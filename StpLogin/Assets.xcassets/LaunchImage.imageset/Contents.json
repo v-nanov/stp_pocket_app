@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "SPLASH640.png",
+      "filename" : "SPLASH640 14-51-23-75.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "SPLASH750.png",
+      "filename" : "SPLASH750 14-51-24-961.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "SPLASH1080.png",
+      "filename" : "SPLASH1080 14-51-26-620.png",
       "scale" : "3x"
     }
   ],
