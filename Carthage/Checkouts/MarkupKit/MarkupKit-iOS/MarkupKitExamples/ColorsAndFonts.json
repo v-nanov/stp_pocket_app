@@ -1,0 +1,12 @@
+{
+    "imageView": {
+        "tintColor": "icon",
+        "contentMode": "scaleAspectFit"
+    },
+
+    "label": {
+        "font": "text",
+        "textColor": "text",
+        "textAlignment": "center"
+    }
+}

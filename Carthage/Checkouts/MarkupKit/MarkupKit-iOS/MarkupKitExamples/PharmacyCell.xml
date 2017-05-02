@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<root>
+    <LMColumnView spacing="4" layoutMarginBottom="8">
+        <LMRowView alignToBaseline="true" spacing="4">
+            <UILabel weight="1" text="$name" font="headline"/>
+            <UILabel text="$distance" font="body" textColor="#808080"/>
+        </LMRowView>
+
+        <UILabel text="$address" numberOfLines="0" font="body"/>
+
+        <LMColumnView spacing="4">
+            <LMRowView>
+                <UIImageView image="PhoneIcon" tintColor="#121212" contentMode="scaleAspectFit"/>
+                <UILabel text="$phone" weight="1" font="caption1"/>
+            </LMRowView>
+            <LMRowView>
+                <UIImageView image="FaxIcon" tintColor="#121212" contentMode="scaleAspectFit"/>
+                <UILabel text="$fax" weight="1" font="caption1"/>
+            </LMRowView>
+            <LMRowView>
+                <UIImageView image="EmailIcon" tintColor="#121212" contentMode="scaleAspectFit"/>
+                <UILabel text="$email" weight="1" font="caption1"/>
+            </LMRowView>
+        </LMColumnView>
+    </LMColumnView>
+</root>

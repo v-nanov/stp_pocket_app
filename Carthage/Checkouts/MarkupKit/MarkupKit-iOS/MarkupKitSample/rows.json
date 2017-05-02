@@ -1,0 +1,14 @@
+[
+    {
+        "heading": "Lorem ipsum dolor sit amet",
+        "detail": "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+        "heading": "Ut enim ad minim veniam",
+        "detail": "Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    },
+    {
+        "heading": "Duis aute irure dolor in reprehenderit in voluptate velit.",
+        "detail": "Esse cillum dolore eu fugiat nulla pariatur."
+    }
+]

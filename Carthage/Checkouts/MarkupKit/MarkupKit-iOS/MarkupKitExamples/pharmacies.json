@@ -1,0 +1,57 @@
+[
+    {
+        "name": "CVS",
+        "address1": "263 Washington Street",
+        "city": "Boston",
+        "state": "MA",
+        "zipCode": "02108",
+        "phone": "6177427035",
+        "email": "store04@cvs.com",
+        "fax": "6177420001",
+        "distance": 0.42
+    },
+    {
+        "name": "Walgreens",
+        "address1": "70 Summer Street",
+        "city": "Boston",
+        "state": "MA",
+        "zipCode": "02108",
+        "phone": "6172657488",
+        "email": "store20@walgreens.com",
+        "fax": "6177420001",
+        "distance": 0.64
+    },
+    {
+        "name": "Rite Aid",
+        "address1": "710 East Broadway",
+        "city": "South Boston",
+        "state": "MA",
+        "zipCode": "02127",
+        "phone": "6172695788",
+        "email": "store01@riteaid.com",
+        "fax": "6172695789",
+        "distance": 2.08
+    },
+    {
+        "name": "Stop & Shop Pharmacy",
+        "address1": "99 Charles Street",
+        "city": "Malden",
+        "state": "MA",
+        "zipCode": "02148",
+        "phone": "7813211768",
+        "email": "pharmacy@stopshop.com",
+        "fax": "7813211700",
+        "distance": 4.31
+    },
+    {
+        "name": "Elmwood Pharmacy",
+        "address1": "56 Pleasant Street",
+        "city": "Malden",
+        "state": "MA",
+        "zipCode": "02148",
+        "phone": "7813210055",
+        "email": "pharmacy@elmwoodpharmacy.com",
+        "fax": "7813214567",
+        "distance": 4.46
+    }
+]

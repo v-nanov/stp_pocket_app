@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<?properties {
+    "cell": {
+        "layer.borderColor": "#cccccc"
+    }
+}?>
+
+<?case iOS?>
+<?properties {
+    "cell": {
+        "layer.borderWidth": 0.5
+    }
+}?>
+<?case tvOS?>
+<?properties {
+    "cell": {
+        "layer.borderWidth": 1
+    }
+}?>
+<?end?>
+
+<LMScrollView fitToWidth="true" backgroundColor="#ffffff">
+    <LMColumnView layoutMargins="16">
+        <UILabel class="cell" numberOfLines="0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
+
+        <LMColumnView alignToGrid="true">
+            <LMRowView alignToBaseline="true">
+                <UILabel class="cell" textAlignment="right" text="First Baseline"/>
+                <UILabel class="cell" weight="1" numberOfLines="0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
+            </LMRowView>
+
+            <LMRowView alignToBaseline="true" baseline="last">
+                <UILabel class="cell" textAlignment="right" text="Last Baseline"/>
+
+                <LMColumnView class="cell" weight="1">
+                    <UILabel numberOfLines="0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
+                    <UILabel numberOfLines="0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
+                </LMColumnView>
+            </LMRowView>
+        </LMColumnView>
+
+        <LMRowView>
+            <LMColumnView class="cell" weight="2">
+                <UILabel numberOfLines="0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
+                <LMSpacer/>
+            </LMColumnView>
+
+            <UILabel class="cell" weight="1" numberOfLines="0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
+        </LMRowView>
+    </LMColumnView>
+</LMScrollView>

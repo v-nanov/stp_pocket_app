@@ -13,14 +13,14 @@
 		E6517FA51E39176B005A4568 /* NavigationContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6517FA41E39176B005A4568 /* NavigationContoller.swift */; };
 		E687B1781EA57307009DB25E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E687B1771EA57307009DB25E /* Images.xcassets */; };
 		E6AE63111E36BEBA008EBEF8 /* textFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AE63101E36BEBA008EBEF8 /* textFieldExtension.swift */; };
+		E6B9355C1EAAB1AD00323404 /* MarkupKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6B9355B1EAAB1AD00323404 /* MarkupKit.framework */; };
+		E6B9355D1EAAB1AD00323404 /* MarkupKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6B9355B1EAAB1AD00323404 /* MarkupKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E6C1D8261DE79B9400B7AEDC /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C1D8251DE79B9400B7AEDC /* Constant.swift */; };
 		E6C3FFBE1E0C48F80067A04C /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C3FFBD1E0C48F80067A04C /* Model.swift */; };
 		E6CF603C1E804D7B0018A88E /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CF603B1E804D7B0018A88E /* SQLite.framework */; };
 		E6CF603D1E804D7B0018A88E /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6CF603B1E804D7B0018A88E /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E6CF603F1E807A720018A88E /* StatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CF603E1E807A720018A88E /* StatePickerViewController.swift */; };
 		E6ED6EE01DCA8AB000678D73 /* PubListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ED6EDF1DCA8AB000678D73 /* PubListViewController.swift */; };
-		E6EEA1281E79DD450070CE5D /* MarkupKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6EEA1241E79DBEF0070CE5D /* MarkupKit.framework */; };
-		E6EEA1291E79DD450070CE5D /* MarkupKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6EEA1241E79DBEF0070CE5D /* MarkupKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E6EEA12B1E79E9630070CE5D /* States.xml in Resources */ = {isa = PBXBuildFile; fileRef = E6EEA12A1E79E9630070CE5D /* States.xml */; };
 		E6F14A331DC8FBA0005C869D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F14A321DC8FBA0005C869D /* AppDelegate.swift */; };
 		E6F14A381DC8FBA0005C869D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6F14A361DC8FBA0005C869D /* Main.storyboard */; };
@@ -45,7 +45,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				E6CF603D1E804D7B0018A88E /* SQLite.framework in Embed Frameworks */,
-				E6EEA1291E79DD450070CE5D /* MarkupKit.framework in Embed Frameworks */,
+				E6B9355D1EAAB1AD00323404 /* MarkupKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -54,11 +54,13 @@
 
 /* Begin PBXFileReference section */
 		09102FF71E4138E800B6405B /* Myriad Pro Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Myriad Pro Regular.ttf"; sourceTree = "<group>"; };
+		E601FA9B1EA800D200910DAC /* StpLogin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StpLogin.entitlements; sourceTree = "<group>"; };
 		E61B337C1E392ACC00BFDFA8 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E6517FA01E37A5DB005A4568 /* uiColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = uiColorExtension.swift; sourceTree = "<group>"; };
 		E6517FA41E39176B005A4568 /* NavigationContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationContoller.swift; sourceTree = "<group>"; };
 		E687B1771EA57307009DB25E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E6AE63101E36BEBA008EBEF8 /* textFieldExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = textFieldExtension.swift; sourceTree = "<group>"; };
+		E6B9355B1EAAB1AD00323404 /* MarkupKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MarkupKit.framework; path = Carthage/Build/iOS/MarkupKit.framework; sourceTree = "<group>"; };
 		E6C1D8251DE79B9400B7AEDC /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		E6C3FFB91E0B3EA10067A04C /* SQLite.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SQLite.framework.dSYM; path = Carthage/Build/iOS/SQLite.framework.dSYM; sourceTree = "<group>"; };
 		E6C3FFBD1E0C48F80067A04C /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -90,7 +92,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6CF603C1E804D7B0018A88E /* SQLite.framework in Frameworks */,
-				E6EEA1281E79DD450070CE5D /* MarkupKit.framework in Frameworks */,
+				E6B9355C1EAAB1AD00323404 /* MarkupKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +102,7 @@
 		E6F14A261DC8FBA0005C869D = {
 			isa = PBXGroup;
 			children = (
+				E6B9355B1EAAB1AD00323404 /* MarkupKit.framework */,
 				E6CF603B1E804D7B0018A88E /* SQLite.framework */,
 				09102FF71E4138E800B6405B /* Myriad Pro Regular.ttf */,
 				E6C3FFB91E0B3EA10067A04C /* SQLite.framework.dSYM */,
@@ -121,6 +124,7 @@
 		E6F14A311DC8FBA0005C869D /* StpLogin */ = {
 			isa = PBXGroup;
 			children = (
+				E601FA9B1EA800D200910DAC /* StpLogin.entitlements */,
 				E6FE75CA1E0B3B240026F2AF /* StpDb.swift */,
 				E6CF603E1E807A720018A88E /* StatePickerViewController.swift */,
 				E6C3FFBD1E0C48F80067A04C /* Model.swift */,
@@ -160,6 +164,7 @@
 				E6F14A2D1DC8FBA0005C869D /* Resources */,
 				E6C3FFBC1E0B3F1C0067A04C /* ShellScript */,
 				E6C3FFC11E0C526C0067A04C /* Embed Frameworks */,
+				E67C5DF21EAE6F8D005801C7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -182,8 +187,13 @@
 				TargetAttributes = {
 					E6F14A2E1DC8FBA0005C869D = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = UR4X4CMCXP;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 67TBE6X9U9;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -223,6 +233,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		E67C5DF21EAE6F8D005801C7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./removeUnwanted.sh;
+		};
 		E6C3FFBC1E0B3F1C0067A04C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -234,7 +257,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "#/usr/local/bin/carthage copy-frameworks";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -372,6 +395,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
@@ -381,40 +405,50 @@
 		E6F14A451DC8FBA1005C869D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = UR4X4CMCXP;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: STP Publications Limited Partnership (67TBE6X9U9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 67TBE6X9U9;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = StpLogin/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = STPRef;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stpub.StpPocketGuide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "77eedf49-cb34-456a-b125-1540893afc57";
+				PROVISIONING_PROFILE_SPECIFIER = StpPocketGuide;
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		E6F14A461DC8FBA1005C869D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = UR4X4CMCXP;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: STP Publications Limited Partnership (67TBE6X9U9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 67TBE6X9U9;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = StpLogin/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = STPRef;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stpub.StpPocketGuide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "77eedf49-cb34-456a-b125-1540893afc57";
+				PROVISIONING_PROFILE_SPECIFIER = StpPocketGuide;
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

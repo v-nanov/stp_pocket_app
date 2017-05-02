@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<LMTableView>
+    <UITableViewCell textLabel.text="Radio Buttons" accessoryType="disclosureIndicator" value="radioButtons"/>
+    <UITableViewCell textLabel.text="Checkboxes" accessoryType="disclosureIndicator" value="checkboxes"/>
+    <UITableViewCell textLabel.text="Grid View" accessoryType="disclosureIndicator" value="gridView"/>
+    <UITableViewCell textLabel.text="Anchor View" accessoryType="disclosureIndicator" value="anchorView"/>
+    <UITableViewCell textLabel.text="Colors and Fonts" accessoryType="disclosureIndicator" value="colorsAndFonts"/>
+    <UITableViewCell textLabel.text="Includes" accessoryType="disclosureIndicator" value="includes"/>
+
+    <?case iOS?>
+    <UITableViewCell textLabel.text="Sliders" accessoryType="disclosureIndicator" value="sliders"/>
+    <UITableViewCell textLabel.text="Selection View" accessoryType="disclosureIndicator" value="selectionView"/>
+    <UITableViewCell textLabel.text="Scroll View" accessoryType="disclosureIndicator" value="scrollView"/>
+    <UITableViewCell textLabel.text="Page View" accessoryType="disclosureIndicator" value="pageView"/>
+    <?end?>
+
+    <UITableViewCell textLabel.text="Custom Cell View" accessoryType="disclosureIndicator" value="customCellView"/>
+    <UITableViewCell textLabel.text="Custom Section View" accessoryType="disclosureIndicator" value="customSectionView"/>
+
+    <?case iOS?>
+    <UITableViewCell textLabel.text="Custom Component View" accessoryType="disclosureIndicator" value="customComponentView"/>
+    <?end?>
+
+    <UITableViewCell textLabel.text="Effect View" accessoryType="disclosureIndicator" value="effectView"/>
+    <UITableViewCell textLabel.text="Gradient Views" accessoryType="disclosureIndicator" value="gradientViews"/>
+    <UITableViewCell textLabel.text="Size Classes" accessoryType="disclosureIndicator" value="sizeClassView"/>
+
+    <?case iOS?>
+    <UITableViewCell textLabel.text="Form View" accessoryType="disclosureIndicator" value="formView"/>
+    <UITableViewCell textLabel.text="Stack View" accessoryType="disclosureIndicator" value="stackView"/>
+    <?end?>
+
+    <UITableViewCell textLabel.text="Periodic Table" accessoryType="disclosureIndicator" value="periodicTable"/>
+    <UITableViewCell textLabel.text="Collection View" accessoryType="disclosureIndicator" value="collectionView"/>
+
+    <?case iOS?>
+    <UITableViewCell textLabel.text="Web View" accessoryType="disclosureIndicator" value="webView"/>
+    <UITableViewCell textLabel.text="Map View" accessoryType="disclosureIndicator" value="mapView"/>
+    <?end?>
+
+    <UITableViewCell textLabel.text="Player View" accessoryType="disclosureIndicator" value="playerView"/>
+</LMTableView>

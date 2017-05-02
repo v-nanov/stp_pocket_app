@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Dbu-1c-AgJ">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -25,25 +24,39 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="66I-Mq-c1s">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="dBu-6V-Fk9">
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="dBu-6V-Fk9" secondAttribute="height" multiplier="507:201" id="zfp-79-yfJ"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" placeholder="Your Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="66I-Mq-c1s">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="4iJ-e5-drR"/>
+                                    <constraint firstAttribute="width" secondItem="66I-Mq-c1s" secondAttribute="height" multiplier="8:1" id="wID-J8-upa"/>
                                 </constraints>
                                 <color key="textColor" red="0.20392156862745098" green="0.2196078431372549" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="25"/>
+                                </variation>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="246" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Hp-4F-9MT">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Hp-4F-9MT">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="6Hp-4F-9MT" secondAttribute="height" multiplier="8:1" id="RUK-FU-K2i"/>
+                                </constraints>
                                 <color key="textColor" red="0.20392156859999999" green="0.21960784310000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" secureTextEntry="YES"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="28"/>
+                                </variation>
                             </textField>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ci5-RT-kIq">
                                 <color key="backgroundColor" red="0.92941176469999998" green="0.56470588239999997" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="20"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="1"/>
                                 <size key="titleShadowOffset" width="1" height="1"/>
                                 <state key="normal" title="Login">
@@ -58,13 +71,16 @@
                                         <integer key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="26"/>
+                                </variation>
                                 <connections>
                                     <action selector="loginAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aM6-MD-y1U"/>
                                 </connections>
                             </button>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GZT-eJ-bvr">
                                 <color key="backgroundColor" red="0.92941176469999998" green="0.56470588239999997" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="20"/>
                                 <size key="titleShadowOffset" width="1" height="1"/>
                                 <state key="normal" title="Browse offline">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -77,43 +93,56 @@
                                         <integer key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="26"/>
+                                </variation>
                                 <connections>
                                     <action selector="browseOffline:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JL4-Tb-SyN"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="The STP Pocket Reference puts your EH&amp;S content at your finger tips." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UiX-b8-iLx">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" restorationIdentifier="LottoLabel" text="The STP Pocket Reference puts your EH&amp;S content at your finger tips." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UiX-b8-iLx">
                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="25"/>
+                                </variation>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="x4L-ov-5J1">
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="x4L-ov-5J1" secondAttribute="height" multiplier="2.8" id="Hg9-8S-eYa"/>
-                                    <constraint firstAttribute="width" constant="375" id="qaF-vW-94F"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="66I-Mq-c1s" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="B7x-NJ-tht"/>
-                            <constraint firstItem="x4L-ov-5J1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="E5D-ou-ypw"/>
-                            <constraint firstItem="UiX-b8-iLx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Fnf-06-oui"/>
-                            <constraint firstItem="GZT-eJ-bvr" firstAttribute="trailing" secondItem="ci5-RT-kIq" secondAttribute="trailing" id="FwX-nv-8Vf"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="UiX-b8-iLx" secondAttribute="bottom" constant="50" id="Hdc-v0-bo8"/>
-                            <constraint firstItem="66I-Mq-c1s" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="230" id="LSU-OK-Ox0"/>
-                            <constraint firstItem="ci5-RT-kIq" firstAttribute="leading" secondItem="6Hp-4F-9MT" secondAttribute="leading" id="SaP-FZ-FSL"/>
-                            <constraint firstItem="66I-Mq-c1s" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="25" id="TCE-TQ-igy"/>
-                            <constraint firstItem="UiX-b8-iLx" firstAttribute="top" secondItem="GZT-eJ-bvr" secondAttribute="bottom" constant="90" id="TM3-HF-r1H"/>
-                            <constraint firstItem="6Hp-4F-9MT" firstAttribute="top" secondItem="66I-Mq-c1s" secondAttribute="bottom" constant="10" id="WmZ-yM-xVf"/>
-                            <constraint firstItem="66I-Mq-c1s" firstAttribute="trailing" secondItem="6Hp-4F-9MT" secondAttribute="trailing" id="akT-qC-qE9"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="UiX-b8-iLx" secondAttribute="trailing" constant="18" id="arw-jK-Pew"/>
-                            <constraint firstItem="ci5-RT-kIq" firstAttribute="top" secondItem="6Hp-4F-9MT" secondAttribute="bottom" constant="61" id="evc-jI-2Pc"/>
-                            <constraint firstItem="ci5-RT-kIq" firstAttribute="trailing" secondItem="6Hp-4F-9MT" secondAttribute="trailing" id="fRm-tI-Uvi"/>
-                            <constraint firstItem="GZT-eJ-bvr" firstAttribute="leading" secondItem="ci5-RT-kIq" secondAttribute="leading" id="r87-4L-Nk8"/>
-                            <constraint firstItem="66I-Mq-c1s" firstAttribute="leading" secondItem="6Hp-4F-9MT" secondAttribute="leading" id="swl-vg-sYZ"/>
-                            <constraint firstItem="GZT-eJ-bvr" firstAttribute="top" secondItem="ci5-RT-kIq" secondAttribute="bottom" constant="10" id="wuS-8h-qaL"/>
-                            <constraint firstItem="x4L-ov-5J1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="zOa-uP-FKC"/>
+                            <constraint firstItem="ci5-RT-kIq" firstAttribute="top" secondItem="6Hp-4F-9MT" secondAttribute="bottom" constant="75" id="4nH-iO-Xxi">
+                                <variation key="heightClass=regular-widthClass=compact" constant="25"/>
+                            </constraint>
+                            <constraint firstItem="UiX-b8-iLx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="25" id="6oT-5e-X5N">
+                                <variation key="heightClass=regular-widthClass=compact" constant="15"/>
+                            </constraint>
+                            <constraint firstItem="66I-Mq-c1s" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Aa8-8S-Dnb"/>
+                            <constraint firstItem="66I-Mq-c1s" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="8" id="Cfb-fj-4Fc">
+                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                            </constraint>
+                            <constraint firstItem="GZT-eJ-bvr" firstAttribute="top" secondItem="ci5-RT-kIq" secondAttribute="bottom" constant="18" id="FYc-Me-lzL">
+                                <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                            </constraint>
+                            <constraint firstItem="6Hp-4F-9MT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Fte-2T-4d4"/>
+                            <constraint firstItem="dBu-6V-Fk9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-25" id="KJu-Vu-UIG"/>
+                            <constraint firstItem="ci5-RT-kIq" firstAttribute="leading" secondItem="6Hp-4F-9MT" secondAttribute="leading" id="PJT-ha-FbT"/>
+                            <constraint firstItem="dBu-6V-Fk9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QOJ-bm-LCh"/>
+                            <constraint firstItem="66I-Mq-c1s" firstAttribute="top" secondItem="dBu-6V-Fk9" secondAttribute="bottom" constant="20" id="Rgz-I7-nmi">
+                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                            </constraint>
+                            <constraint firstItem="dBu-6V-Fk9" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="15" id="TLZ-Y5-sJt"/>
+                            <constraint firstItem="6Hp-4F-9MT" firstAttribute="top" secondItem="66I-Mq-c1s" secondAttribute="bottom" constant="12" id="WAh-JE-Ljx"/>
+                            <constraint firstItem="GZT-eJ-bvr" firstAttribute="leading" secondItem="6Hp-4F-9MT" secondAttribute="leading" id="fkQ-Xl-07T"/>
+                            <constraint firstItem="GZT-eJ-bvr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gvN-yX-btz"/>
+                            <constraint firstItem="UiX-b8-iLx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="it3-pG-MZX"/>
+                            <constraint firstItem="UiX-b8-iLx" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" constant="25" id="jEA-GB-2fh">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-25"/>
+                                <variation key="heightClass=regular-widthClass=regular" constant="-55"/>
+                            </constraint>
+                            <constraint firstItem="6Hp-4F-9MT" firstAttribute="leading" secondItem="66I-Mq-c1s" secondAttribute="leading" id="mH9-Gh-a98"/>
+                            <constraint firstItem="ci5-RT-kIq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yd7-UX-Wdu"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="SZc-Et-IEo"/>
@@ -126,7 +155,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="818" y="143"/>
+            <point key="canvasLocation" x="997.60000000000002" y="28.335832083958024"/>
         </scene>
         <!--Pub List View Controller-->
         <scene sceneID="FBv-iT-fMT">
@@ -141,7 +170,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ntL-a4-Cm1" id="p5J-oZ-php">
-                                    <frame key="frameInset" width="375" height="90"/>
+                                    <frame key="frameInset" width="375" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -149,7 +178,7 @@
                                 <rect key="frame" x="0.0" y="118" width="375" height="35"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="otm-NJ-scc" id="vWX-lj-Gxc">
-                                    <frame key="frameInset" width="375" height="35"/>
+                                    <frame key="frameInset" width="375" height="34.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -186,7 +215,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IEK-XC-tsc" id="1eg-Id-oQn">
-                                    <frame key="frameInset" width="375" height="44"/>
+                                    <frame key="frameInset" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -194,7 +223,7 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JDQ-Rj-C3Y" id="Yg2-ED-kbu">
-                                    <frame key="frameInset" width="375" height="44"/>
+                                    <frame key="frameInset" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </tableViewCellContentView>
@@ -230,7 +259,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dPZ-Io-ncj" id="sw6-Ys-hXW">
-                                    <frame key="frameInset" width="375" height="44"/>
+                                    <frame key="frameInset" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -238,7 +267,7 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b5W-Xv-D2g" id="FAb-nx-CiD">
-                                    <frame key="frameInset" width="375" height="44"/>
+                                    <frame key="frameInset" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -275,7 +304,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zLK-uS-UXa" id="bah-jA-roJ">
-                                    <frame key="frameInset" width="375" height="44"/>
+                                    <frame key="frameInset" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -283,7 +312,7 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ivD-vX-l5C" id="CYg-Ol-x0P">
-                                    <frame key="frameInset" width="375" height="44"/>
+                                    <frame key="frameInset" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -317,7 +346,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IBx-g5-lRp" id="j4V-aT-Qp6">
-                                    <frame key="frameInset" width="375" height="44"/>
+                                    <frame key="frameInset" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -325,7 +354,7 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I7I-Ck-54L" id="OpE-nI-h3d">
-                                    <frame key="frameInset" width="375" height="44"/>
+                                    <frame key="frameInset" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </tableViewCellContentView>
@@ -351,7 +380,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dbu-1c-AgJ" customClass="NavigationController" customModule="StpLogin" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="GHm-2y-eXM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="GHm-2y-eXM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.20392156859999999" green="0.21960784310000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
